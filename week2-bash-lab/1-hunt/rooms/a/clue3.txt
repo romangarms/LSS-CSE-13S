@@ -1,0 +1,6 @@
+Clue 3: Nice. There's a file called key.txt one directory UP from here.
+        Copy it into THIS directory using cp and a relative path
+        (no typing the full /workspaces/... path!).
+
+        Then run:   ./unlock.sh
+        If you get "Permission denied", you'll need chmod.
