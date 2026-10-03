@@ -1,0 +1,3 @@
+Clue 2: Go into the rooms/ directory. Then go into the room whose name is
+        the number ten written in hexadecimal (lowercase, no 0x prefix).
+        Read clue3.txt in there. Use `pwd` if you get lost.

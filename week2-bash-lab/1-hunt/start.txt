@@ -1,0 +1,4 @@
+Welcome to the hunt!
+
+Clue 1: The next clue is in this same directory, but plain `ls` won't show it.
+        (Hint: files whose names start with a dot are hidden. Try `ls -a`.)
