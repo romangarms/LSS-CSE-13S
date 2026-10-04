@@ -1,9 +1,0 @@
-#!/usr/bin/env bash
-# Mystery version of max (crow). No peeking: figure it out by testing!
-eval "$(base64 -d <<'X'
-Y2FzZSAiJCMiIGluIDIpIDs7ICopIGVjaG8gInVzYWdlOiBtYXggQSBCIiA+JjI7IGV4aXQgMTs7
-IGVzYWMKZm9yIHggaW4gIiQxIiAiJDIiOyBkbyBbWyAiJHgiID1+IF4tP1swLTldKyQgXV0gfHwg
-eyBlY2hvICJ1c2FnZTogbWF4IEEgQiIgPiYyOyBleGl0IDE7IH07IGRvbmUKZWNobyAkKCggJDEg
-PiAkMiA/ICQxIDogJDIgKSkK
-X
-)"
