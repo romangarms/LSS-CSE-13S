@@ -1,0 +1,2 @@
+VAR=$(ls)
+echo $VAR
