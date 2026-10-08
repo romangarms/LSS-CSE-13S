@@ -25,7 +25,7 @@ cd 2-fixme
 bash 01_variable.sh      # try each one
 bash check.sh            # see which ones you've fixed
 ```
-Goal: `8 / 8 checks passing`.
+Goal: `6 / 6 scripts fixed`.
 
 ## Start over
 From `week2-bash-lab/`, this undoes your edits and removes files you created:
