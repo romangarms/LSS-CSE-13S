@@ -5,6 +5,6 @@ Practice materials from Learning Support Services (LSS) tutoring sessions for UC
 | Folder | What's in it |
 |---|---|
 | [`week2-bash-lab/`](week2-bash-lab/) | Bash scavenger hunt and fix-the-script challenges |
-| [`week3-c-lab/`](week3-c-lab/) | C predict-the-output and fix-the-program challenges |
+| [`week3-c-lab/`](week3-c-lab/) | C predict-the-output, fix-the-program, and write-your-own challenges |
 
 These are practice exercises, not course assignments. Please follow the course's academic integrity policy.

@@ -38,6 +38,15 @@ bash check.sh            # see which ones you've fixed
 ```
 Goal: `6 / 6 programs fixed`.
 
+## Bonus: Write your own (`3-bonus/`)
+Write a program from scratch: `triangle.c` should print a triangle of `#` using `for` loops.
+The comment at the top shows the exact pattern.
+```bash
+cd 3-bonus
+bash check.sh
+```
+Done early? Flip it upside down so the longest row comes first.
+
 ## Start over
 From `week3-c-lab/`, this undoes your edits and removes files you created:
 ```bash
