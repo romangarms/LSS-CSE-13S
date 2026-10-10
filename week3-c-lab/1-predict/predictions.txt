@@ -1,0 +1,8 @@
+# Read each program, then write the line you think it prints after the colon.
+# Do this BEFORE you compile it! Then run:  bash check.sh
+p1:
+p2:
+p3:
+p4:
+p5:
+p6:
