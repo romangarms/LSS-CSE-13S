@@ -38,6 +38,44 @@ bash check.sh            # see which ones you've fixed
 ```
 Goal: `6 / 6 programs fixed`.
 
+## Bonus: Write your own (`3-bonus/`)
+Write programs from scratch. Each file has an empty `main`; fill it in so it prints its triangle using
+`for` loops. Each `printf` may print only one character: `"#"`, `" "`, or `"\n"`.
+
+`left.c`
+```
+#
+##
+###
+####
+#####
+```
+
+`right.c`
+```
+    #
+   ##
+  ###
+ ####
+#####
+```
+
+`middle.c`
+```
+    #
+   ###
+  #####
+ #######
+#########
+```
+
+Check your work (it checks all three):
+```bash
+cd 3-bonus
+bash check.sh
+```
+Goal: `3 / 3 triangles done`. Hint: a row is some spaces, then some `#`, then `"\n"`. How many of each does row 1 need? Row 5?
+
 ## Start over
 From `week3-c-lab/`, this undoes your edits and removes files you created:
 ```bash
