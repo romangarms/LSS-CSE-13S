@@ -76,6 +76,30 @@ bash check.sh
 ```
 Goal: `3 / 3 triangles done`. Hint: a row is some spaces, then some `#`, then `"\n"`. How many of each does row 1 need? Row 5?
 
+## Pair activities (pick any)
+These work best with a partner. Each person thinks on their own first, then you compare.
+
+### Python to C (`4-python-to-c/`)
+Four short Python programs, each with an empty `.c` file next to it. Translate each one into C so it
+prints exactly the same thing.
+1. **Think:** pick a program and translate it on your own (no compiling yet).
+2. **Pair:** compare your C with your partner's. Where are they different? Which differences matter?
+3. **Check:** compile and run.
+```bash
+cd 4-python-to-c
+python3 countdown.py     # see what it prints
+bash check.sh            # compares each Python program with your C version
+```
+Goal: `4 / 4 translated`.
+
+### Stump your partner
+Each partner secretly writes a tiny program, `cp hello.c stump.c`, that prints **one line** and is
+**10 lines or shorter** inside `main`. Only use what's been covered so far: `int` variables, `printf` with `%d`,
+`if`, `while`, `for`, and functions. Give every variable a value before you use it.
+
+Trade programs, read your partner's, and write down what you think it prints. Then compile and run it.
+Whoever wrote the program explains why it prints what it does.
+
 ## Start over
 From `week3-c-lab/`, this undoes your edits and removes files you created:
 ```bash
