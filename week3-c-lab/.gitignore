@@ -4,5 +4,6 @@
 !*.c
 !*.sh
 !*.txt
+!*.py
 !*.md
 !.gitignore
