@@ -5,7 +5,7 @@ cd "$(dirname "$0")" || exit 1
 CC=$(command -v clang || command -v cc)
 pass=0
 
-for name in countdown evens total smaller; do
+for name in countdown evens total smaller triangle; do
     # Spaces at the end of a line are invisible, so they don't count.
     want=$(python3 "$name.py" | sed 's/ *$//')
     if ! "$CC" "$name.c" -o "$name" 2> errors.txt; then
@@ -18,12 +18,12 @@ for name in countdown evens total smaller; do
             pass=$((pass + 1))
         else
             echo "FAIL  $name.c"
-            echo "      python prints: $want"
-            echo "      your C prints: $got"
+            echo "$want" | sed 's/^/      python prints | /'
+            echo "$got" | sed 's/^/      your C prints | /'
         fi
     fi
     rm -f errors.txt
 done
 
 echo
-echo "$pass / 4 translated"
+echo "$pass / 5 translated"
