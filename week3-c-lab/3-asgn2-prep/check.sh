@@ -29,8 +29,8 @@ check() {   # check PROGRAM.c EXPECTED_OUTPUT
 
 check line.c "line(3.5) = 8.00
 line(-2) = -3.00"
-check commands.c "setting N to 12.00
-clearing everything
+check commands.c "N = 12, I = 0.03
+N = 0, I = 0.00
 unknown command: jump"
 check interest.c "loop: 1092.73   pow: 1092.73"
 

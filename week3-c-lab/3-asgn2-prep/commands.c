@@ -1,10 +1,11 @@
 // Goal: print
-//   setting N to 12.00
-//   clearing everything
+//   N = 12, I = 0.03
+//   N = 0, I = 0.00
 //   unknown command: jump
 //
-// set_variable() and clear() are already written. Fill in handle() so it reads
-// the command string and calls the right one, like asgn2's tvm_process_command():
+// set_variable() and clear() are already written, and they change the global
+// variables N and I. Fill in handle() so it reads the command string and calls
+// the right one, like asgn2's tvm_process_command():
 //   "set N 12"  ->  call set_variable("N", 12)
 //   "clear"     ->  call clear()
 //   anything else: print "unknown command: " and the command
@@ -16,12 +17,22 @@
 #include <stdio.h>
 #include <string.h>
 
+double N = 0;    // number of periods
+double I = 0;    // interest rate
+
 void set_variable(char *name, double value) {
-    printf("setting %s to %.2f\n", name, value);
+    if (strcmp(name, "N") == 0) {
+        N = value;
+    } else if (strcmp(name, "I") == 0) {
+        I = value;
+    } else {
+        printf("invalid variable name: %s\n", name);
+    }
 }
 
 void clear(void) {
-    printf("clearing everything\n");
+    N = 0;
+    I = 0;
 }
 
 void handle(char *command) {
@@ -33,7 +44,12 @@ void handle(char *command) {
 
 int main(void) {
     handle("set N 12");
+    handle("set I 0.03");
+    printf("N = %.0f, I = %.2f\n", N, I);
+
     handle("clear");
+    printf("N = %.0f, I = %.2f\n", N, I);
+
     handle("jump");
     return 0;
 }
