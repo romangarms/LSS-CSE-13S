@@ -6,11 +6,12 @@
 #include <math.h>
 #include <stdio.h>
 
-int main(void) {
+int main(void)
+{
     double money = 1000;
 
     // your code here: the for loop
 
-    printf("loop: %.2f   pow: %.2f\n", money, 0.0);    // replace 0.0 with your pow() answer
+    printf("loop: %.2f   pow: %.2f\n", money, 0.0); // replace 0.0 with your pow() answer
     return 0;
 }
