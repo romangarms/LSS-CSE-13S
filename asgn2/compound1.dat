@@ -1,0 +1,4 @@
+set N 6
+set I 0.0025
+set PV -10000
+compute FV
