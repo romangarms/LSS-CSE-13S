@@ -40,9 +40,9 @@ bash check.sh            # see which ones you've fixed
 Goal: `6 / 6 programs fixed`.
 
 ## Level 3: asgn2 warm-ups (`3-asgn2-prep/`)
-Three short write-it-yourself challenges using pieces of asgn2: doubles, `if` / `else if` / `else`
-with `strcmp`, and a `for` loop next to `pow`. Each file's comment shows the goal output; fill in the
-`// your code here` part.
+Three short challenges using pieces of asgn2: a function that returns a double, reading a command
+like `set N 12` and calling the right function, and a `for` loop next to `pow`. Each file's comment
+shows the goal output; fill in the marked part.
 ```bash
 cd 3-asgn2-prep
 clang -lm line.c -o line && ./line

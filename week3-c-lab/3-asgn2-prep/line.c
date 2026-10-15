@@ -1,13 +1,20 @@
-// Goal: print   y = 8.00
-// Compute y = m * x + b using the doubles below, then print y with 2 decimal places.
+// Goal: print
+//   line(3.5) = 8.00
+//   line(-2) = -3.00
+//
+// Fill in line() so it returns y = M * x + B, using the constants below.
+// main() is done: it calls line() and prints what it returns.
 #include <stdio.h>
 
+double M = 2;    // slope (a constant: line() reads it but never changes it)
+double B = 1;    // y-intercept
+
+double line(double x) {
+    return 0.0;    // replace this line with your own code
+}
+
 int main(void) {
-    double m = 2;
-    double x = 3.5;
-    double b = 1;
-
-    // your code here: declare y, compute it, and print it with %.2f
-
+    printf("line(3.5) = %.2f\n", line(3.5));
+    printf("line(-2) = %.2f\n", line(-2));
     return 0;
 }

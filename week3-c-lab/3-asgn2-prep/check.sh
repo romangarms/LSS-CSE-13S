@@ -27,10 +27,11 @@ check() {   # check PROGRAM.c EXPECTED_OUTPUT
     rm -f errors.txt
 }
 
-check line.c "y = 8.00"
-check commands.c "set: setting a variable
-clear: clearing everything
-jump: unknown command"
+check line.c "line(3.5) = 8.00
+line(-2) = -3.00"
+check commands.c "setting N to 12.00
+clearing everything
+unknown command: jump"
 check interest.c "loop: 1092.73   pow: 1092.73"
 
 echo
