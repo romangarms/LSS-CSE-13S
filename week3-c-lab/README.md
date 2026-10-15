@@ -1,6 +1,7 @@
 # Week 3 C Lab
 
-Practice for CSE 13S week 3: compiling and running C, `printf`, variables, `if`, `while`, and `for`.
+Practice for CSE 13S week 3: compiling and running C, `printf`, variables, `if`, `while`, and `for`,
+plus a level that preps for asgn2.
 Runs in your Codespace (or any Linux terminal with `clang`).
 
 ```bash
@@ -36,6 +37,19 @@ cd 2-fixme
 clang 01_semicolon.c -o 01_semicolon && ./01_semicolon
 bash check.sh            # see which ones you've fixed
 ```
+Goal: `6 / 6 programs fixed`.
+
+## Level 3: asgn2 prep (`3-asgn2-prep/`)
+Six short programs, each with one bug you could hit in asgn2: printing doubles, `pow` in an equation,
+`sscanf`, `strcmp`, global variables, and exit codes. Like asgn2, compile with `-lm` (the math library).
+First, see what happens without it:
+```bash
+cd 3-asgn2-prep
+clang 02_equation.c -o 02_equation           # fails: "undefined reference to `pow'"
+clang -lm 02_equation.c -o 02_equation && ./02_equation
+bash check.sh            # see which ones you've fixed
+```
+Before you fix each one, say *why* it does what it does.
 Goal: `6 / 6 programs fixed`.
 
 ## Pair activity: Python to C (`4-python-to-c/`)
