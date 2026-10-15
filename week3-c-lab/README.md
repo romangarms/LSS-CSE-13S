@@ -1,7 +1,7 @@
 # Week 3 C Lab
 
 Practice for CSE 13S week 3: compiling and running C, `printf`, variables, `if`, `while`, and `for`,
-plus a level that preps for asgn2.
+plus three short asgn2 warm-ups.
 Runs in your Codespace (or any Linux terminal with `clang`).
 
 ```bash
@@ -39,18 +39,17 @@ bash check.sh            # see which ones you've fixed
 ```
 Goal: `6 / 6 programs fixed`.
 
-## Level 3: asgn2 prep (`3-asgn2-prep/`)
-Six short programs, each with one bug you could hit in asgn2: printing doubles, `pow` in an equation,
-`sscanf`, `strcmp`, global variables, and exit codes. Like asgn2, compile with `-lm` (the math library).
-First, see what happens without it:
+## Level 3: asgn2 warm-ups (`3-asgn2-prep/`)
+Three short write-it-yourself challenges using pieces of asgn2: doubles, `if` / `else if` / `else`
+with `strcmp`, and a `for` loop next to `pow`. Each file's comment shows the goal output; fill in the
+`// your code here` part.
 ```bash
 cd 3-asgn2-prep
-clang 02_equation.c -o 02_equation           # fails: "undefined reference to `pow'"
-clang -lm 02_equation.c -o 02_equation && ./02_equation
-bash check.sh            # see which ones you've fixed
+clang -lm line.c -o line && ./line
+bash check.sh            # checks all three
 ```
-Before you fix each one, say *why* it does what it does.
-Goal: `6 / 6 programs fixed`.
+Use `-lm` (the math library) like asgn2 does. Without it, `pow` gives "undefined reference to `pow'".
+Goal: `3 / 3 challenges done`.
 
 ## Pair activity: Python to C (`4-python-to-c/`)
 Five short Python programs, each with an empty `.c` file next to it. Translate each one into C so it
