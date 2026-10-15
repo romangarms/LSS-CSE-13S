@@ -1,4 +1,5 @@
 // Goal: print
+//   N = 0, I = 0.00
 //   N = 12, I = 0.03
 //   N = 0, I = 0.00
 //   unknown command: jump
@@ -13,6 +14,9 @@
 // Hints:
 //   sscanf(command, "set %s %lf", name, &value) returns 2 when command looks
 //   like "set NAME NUMBER". It stores the name and number in name and value.
+//   The & is required on value (lecture 9): it tells sscanf where value lives,
+//   so sscanf can fill it in. Without it, sscanf only gets a copy of value's
+//   number and the program crashes. name has no & because it is an array.
 //   strcmp(command, "clear") returns 0 when command is exactly "clear".
 #include <stdio.h>
 #include <string.h>
