@@ -2,8 +2,15 @@
 //   line(3.5) = 8.00
 //   line(-2) = -3.00
 //
-// Fill in line() so it returns y = M * x + B, using the constants below.
-// main() is done: it calls line() and prints what it returns.
+// Fill in line() so it returns the y value of the straight line with slope M
+// and y-intercept B (the constants below). main() is done: it calls line()
+// and prints what it returns.
+//
+// Hints:
+//   Think back to the slope-intercept form of a line from algebra.
+//   x comes in as a parameter. M and B are globals, so line() can use them
+//   without them being passed in.
+//   Work out line(3.5) by hand first so you know what you're aiming for.
 #include <stdio.h>
 
 double M = 2; // slope (a constant: line() reads it but never changes it)

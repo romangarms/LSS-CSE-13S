@@ -1,8 +1,13 @@
 // Goal: print   loop: 1092.73   pow: 1092.73
-// $1000 earning 3% a year for 3 years is 1000 x 1.03 x 1.03 x 1.03.
-// 1. Use a for loop (try ++year) to multiply money by 1.03 three times.
-// 2. Compute the same thing with pow(), from <math.h>: 1000 * pow(1.03, 3).
-// Compile with -lm:   clang -lm interest.c -o interest
+// money starts at $1000 and earns 3% interest a year for 3 years.
+// 1. Write a for loop that adds one year of interest to money each time.
+// 2. Get the same answer in a single expression with pow(), and put it where
+//    0.0 is in the printf.
+//
+// Hints:
+//   Growing by 3% is the same as multiplying by what number?
+//   pow(x, n) from <math.h> computes x to the power n.
+//   Compile with -lm:   clang -lm interest.c -o interest
 #include <math.h>
 #include <stdio.h>
 

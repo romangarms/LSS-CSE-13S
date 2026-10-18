@@ -51,6 +51,17 @@ bash check.sh            # checks all three
 Use `-lm` (the math library) like asgn2 does. Without it, `pow` gives "undefined reference to `pow'".
 Goal: `3 / 3 challenges done`.
 
+## Bonus: asgn2 extras (`5-asgn2-bonus/`)
+For anyone who already knows C or C++: three challenges on the C-specific tools asgn2 uses.
+`robot.c` reads commands with `sscanf` and reports bad ones, `pizza.c` checks its input and
+exits with an error, and `newton.c` finds a square root with Newton's method, the same
+idea asgn2 uses to compute N and I. Each file's comment shows the goal output.
+```bash
+cd 5-asgn2-bonus
+clang -lm robot.c -o robot && ./robot
+echo $?                  # the exit code; the goals say what it should be
+```
+
 ## Pair activity: Python to C (`4-python-to-c/`)
 Five short Python programs, each with an empty `.c` file next to it. Translate each one into C so it
 prints exactly the same thing.
