@@ -1,4 +1,5 @@
 // Goal: print
+//   N = 0, I = 0.00
 //   N = 12, I = 0.03
 //   N = 0, I = 0.00
 //   unknown command: jump
@@ -6,14 +7,19 @@
 // set_variable() and clear() are already written, and they change the global
 // variables N and I. Fill in handle() so it reads the command string and calls
 // the right one, like asgn2's tvm_process_command():
-//   "set N 12"  ->  call set_variable("N", 12)
-//   "clear"     ->  call clear()
+//   a set command, like "set N 12": set that variable to that number
+//   "clear": clear both variables
 //   anything else: print "unknown command: " and the command
 //
 // Hints:
-//   sscanf(command, "set %s %lf", name, &value) returns 2 when command looks
-//   like "set NAME NUMBER". It stores the name and number in name and value.
-//   strcmp(command, "clear") returns 0 when command is exactly "clear".
+//   Lecture 9 has both tools you need: sscanf() and strcmp(). Section 5 of
+//   the asgn2 spec suggests which one to try first.
+//   sscanf() returns how many % fields it matched. How many fields does a
+//   set command have?
+//   sscanf() stores into variables. Lecture 9 says which kinds need a & in
+//   front and which don't.
+//   strcmp() returns 0 when the two strings are the same.
+//   name and value are already declared for you to use.
 #include <stdio.h>
 #include <string.h>
 
