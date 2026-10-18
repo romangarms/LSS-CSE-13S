@@ -51,15 +51,17 @@ bash check.sh            # checks all three
 Use `-lm` (the math library) like asgn2 does. Without it, `pow` gives "undefined reference to `pow'".
 Goal: `3 / 3 challenges done`.
 
-## Bonus: asgn2 extras (`5-asgn2-bonus/`)
-For anyone who already knows C or C++: three challenges on the C-specific tools asgn2 uses.
-`robot.c` reads commands with `sscanf` and reports bad ones, `pizza.c` checks its input and
-exits with an error, and `newton.c` finds a square root with Newton's method, the same
-idea asgn2 uses to compute N and I. Each file's comment shows the goal output.
+## Bonus: robot commander (`5-asgn2-bonus/`)
+For anyone who already knows C or C++. `robot.c` reads commands you type, like `move 3 -1.5`,
+`say hi` and `scan`, the same way asgn2's tvm reads its commands: `fgets` in a loop, then
+`sscanf` and `strcmp` to decide what to do, and `fprintf(stderr, ...)` with `exit(1)` for errors.
+The comment at the top of `robot.c` explains the commands and the two parts to write.
 ```bash
 cd 5-asgn2-bonus
-clang -lm robot.c -o robot && ./robot
-echo $?                  # the exit code; the goals say what it should be
+clang robot.c -o robot
+./robot                  # type commands; ctrl+D to stop
+./robot < commands.txt   # or run the sample file, like ./tvm < simple.dat
+echo $?                  # exit code: 1 after an error, 0 otherwise
 ```
 
 ## Pair activity: Python to C (`4-python-to-c/`)

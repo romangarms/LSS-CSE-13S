@@ -1,0 +1,9 @@
+say hello
+move 3 -1.5
+move 2 4
+
+scan
+reset
+scan
+move 9 0
+move 2 0
