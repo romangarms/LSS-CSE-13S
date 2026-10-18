@@ -21,6 +21,7 @@ double line(double x)
     return 0.0; // replace this line with your own code
 }
 
+// Do not modify this function.
 int main(void)
 {
     printf("line(3.5) = %.2f\n", line(3.5));

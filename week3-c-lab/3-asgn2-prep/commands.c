@@ -26,6 +26,7 @@
 double N = 0; // number of periods
 double I = 0; // interest rate
 
+// Do not modify this function.
 void set_variable(char *name, double value)
 {
     if (strcmp(name, "N") == 0)
@@ -42,6 +43,7 @@ void set_variable(char *name, double value)
     }
 }
 
+// Do not modify this function.
 void clear(void)
 {
     N = 0;
@@ -56,6 +58,7 @@ void handle(char *command)
     // your code here
 }
 
+// Do not modify this function.
 int main(void)
 {
     // initial print

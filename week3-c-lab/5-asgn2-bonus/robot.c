@@ -49,21 +49,25 @@ void move(double dx, double dy, int line_number)
 {
     // Part 2: your grid check here
 
+    // Do not modify the lines below.
     x = x + dx;
     y = y + dy;
     printf("at (%.1f, %.1f)\n", x, y);
 }
 
+// Do not modify this function.
 void say(char *word)
 {
     printf("robot says: %s\n", word);
 }
 
+// Do not modify this function.
 void scan(void)
 {
     printf("robot is at (%.1f, %.1f)\n", x, y);
 }
 
+// Do not modify this function.
 void reset(void)
 {
     x = 0;
@@ -79,7 +83,7 @@ void handle_command(char *command, int line_number)
     // Part 1: your code here
 }
 
-// Cuts a line off at its '\n' (copied from asgn2's tvm.c).
+// Cuts a line off at its '\n' (copied from asgn2's tvm.c). Do not modify this function.
 void truncate_at_newline(char *s)
 {
     int j = 0;
@@ -90,6 +94,7 @@ void truncate_at_newline(char *s)
     s[j] = '\0';
 }
 
+// Do not modify this function.
 int main(void)
 {
     char command[40];
