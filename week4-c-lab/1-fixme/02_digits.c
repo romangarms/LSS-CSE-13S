@@ -6,7 +6,7 @@ int main(void) {
     char s[] = "abc123";
     int count = 0;
     for (int i = 0; s[i] != '\0'; i++) {
-        if (isdigit(s[i]) == 1) {
+        if (s[i] >= 0 && s[i] <= 9) {
             count++;
         }
     }
