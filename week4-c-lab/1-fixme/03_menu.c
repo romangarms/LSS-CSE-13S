@@ -6,12 +6,10 @@ int main(void) {
     switch (choice) {
     case 'a':
         printf("you picked apple\n");
-        break;
     case 'b':
         printf("you picked banana\n");
     case 'c':
         printf("you picked cherry\n");
-        break;
     default:
         printf("not on the menu\n");
     }
