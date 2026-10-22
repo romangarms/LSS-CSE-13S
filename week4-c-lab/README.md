@@ -10,42 +10,27 @@ cd LSS-CSE-13S && git pull
 cd week4-c-lab
 ```
 
-Compile and run the same way as week 3:
+## Level 1: Find the error (`1-fixme/`)
+Six programs, each with one bug, one for each quiz topic. The comment at the top says what it
+*should* print. Compile and run each one, and read every error **and warning**:
 ```bash
-clang p1.c -o p1 && ./p1
-```
-
-Levels 1 and 2 each have one program per quiz topic.
-
-## Level 1: Predict the output (`1-predict/`)
-Six tiny programs. **Without compiling**, write what you think each one prints in `predictions.txt`.
-Then compile and run each one to check yourself. `p5` needs arguments:
-```bash
-cd 1-predict
-clang p5.c -o p5 && ./p5 cat "big dog" 42
-```
-For any you got wrong, change the program and re-run it until you can explain what happened.
-
-## Level 2: Find the error (`2-fixme/`)
-Six programs, each with one bug. The comment at the top says what it *should* print.
-Compile and run each one, and read every error **and warning**:
-```bash
-cd 2-fixme
+cd 1-fixme
 clang 01_letters.c -o 01_letters && ./01_letters
 ```
 Fix the one bug, recompile, and run it again until the output matches the comment.
 
-## Level 3: Write it (`3-write/`)
-Two short challenges. The comment at the top of each file shows the goal and which part to fill in.
-- `calc.c`: a calculator that reads its input from the command line, like `./calc 6 x 7`,
-  using `argc`, `argv` and a `switch`.
+## Level 2: Write it (`2-write/`)
+Three short challenges. The comment at the top of each file shows the goal and which part to fill in.
+- `banner.c`: prints a name in a box of stars, like `./banner Sammy`, but only if the name fits
+  in a `char name[10]`. Uses both `sizeof` and `strlen`.
 - `words.c`: two string functions, `count_digits()` and `shout()`. `main()` tests them with
   `assert()`, so a failed test tells you its line number.
+- `calc.c`: a calculator that reads its input from the command line, like `./calc 6 x 7`,
+  using `argc`, `argv` and a `switch`.
 ```bash
-cd 3-write
-clang calc.c -o calc && ./calc 3 + 4
+cd 2-write
+clang banner.c -o banner && ./banner Sammy
 echo $?                  # exit code: 1 after an error, 0 otherwise
-clang words.c -o words && ./words
 ```
 
 ## Start over

@@ -1,9 +1,0 @@
-# Read each program, then write what you think it prints after the colon.
-# Do this BEFORE you compile it! Then compile and run each one to check.
-# p5 needs arguments: run it as   ./p5 cat "big dog" 42
-p1:
-p2:
-p3:
-p4:
-p5:
-p6:
