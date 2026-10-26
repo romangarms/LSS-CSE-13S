@@ -1,4 +1,0 @@
-Roses are red,
-Violets are blue,
-I have 3 bugs in line 42
-And I compile with -Wall too.

@@ -1,36 +1,47 @@
-// Counts the kinds of chars that come in on stdin, until EOF.
+// Sorts each char you type into a type: lowercase, uppercase, digit, space, or other.
 //
-// Goal:
-//   ./count < poem.txt         prints   lowercase: 56
-//                                       uppercase: 6
-//                                       digits:    3
-//                                       lines:     4
-// You can also run plain  ./count , type a few lines, then press Ctrl-D at the start of a
-// new line. Ctrl-D is how you type "end of input" (EOF) in the terminal.
+// Goal: type a line, press Enter, and it counts that line:
+//   Type a line (Ctrl-D to quit): Hello World 42!
+//   lowercase: 8  uppercase: 2  digits: 2  spaces: 2  other: 1
+//   Type a line (Ctrl-D to quit): CSE13s rocks
+//   lowercase: 6  uppercase: 3  digits: 2  spaces: 1  other: 0
+//   Type a line (Ctrl-D to quit):            <- press Ctrl-D here to quit
 //
-// Fill in the loop in main(): read one char at a time with getchar() until EOF, and add
-// to the right counter. A "line" is one '\n' char.
+// main() already reads the input one char at a time with getchar(). Fill in
+// count_char(): look at ch, decide which type it is, and add 1 to the right counter.
 //
 // Hints:
-//   man 3 getchar   (Lecture 10). Look for RETURN VALUE: what does it give you at the end?
-//   Store what getchar() gives you in an int, not a char. The RETURN VALUE section says why.
-//   Lowercase means between 'a' and 'z'. What are the ranges for the other two?
-//   Then try  ./count < ../../asgn3/tester.txt  That file is how asgn3's tests type
-//   guesses into hangman for you: one char per line.
+//   Lowercase means between 'a' and 'z'. Write the comparison yourself, no islower().
+//   What are the ranges for uppercase and for digits?
+//   A space is the char ' '. Anything that isn't one of the first four types is "other".
+//   Each char should land in exactly one counter. Which kind of if chain does that?
 #include <stdio.h>
 
-int main(void) {
-    int lowercase = 0;
-    int uppercase = 0;
-    int digits = 0;
-    int lines = 0;
+// The counters. count_char() adds to them, and main() prints and resets them.
+int lowercase = 0;
+int uppercase = 0;
+int digits = 0;
+int spaces = 0;
+int other = 0;
 
+void count_char(int ch) {
     // your code here
+}
 
-    // Do not modify the rest of main.
-    printf("lowercase: %d\n", lowercase);
-    printf("uppercase: %d\n", uppercase);
-    printf("digits:    %d\n", digits);
-    printf("lines:     %d\n", lines);
+// Do not modify this function.
+int main(void) {
+    printf("Type a line (Ctrl-D to quit): ");
+    int ch;
+    while ((ch = getchar()) != EOF) {
+        if (ch == '\n') {
+            printf("lowercase: %d  uppercase: %d  digits: %d  spaces: %d  other: %d\n",
+                lowercase, uppercase, digits, spaces, other);
+            lowercase = uppercase = digits = spaces = other = 0;
+            printf("Type a line (Ctrl-D to quit): ");
+        } else {
+            count_char(ch);
+        }
+    }
+    printf("\n");
     return 0;
 }

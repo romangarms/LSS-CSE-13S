@@ -31,8 +31,8 @@ Fix the one bug, recompile, and run it again until the output matches the commen
 Three short challenges. The comment at the top of each file shows the goal and which part to fill in.
 - `letters.c`: which letters a phrase uses and which it skips, printed in alphabetical order,
   like `./letters "hello world"`. Uses an array as a set.
-- `count.c`: counts lowercase letters, uppercase letters, digits and lines from input until EOF.
-  Run it with `./count < poem.txt` to feed it a file.
+- `count.c`: type a line and it sorts each char into a type (lowercase, uppercase, digit,
+  space or other) and counts them. Press Ctrl-D to quit.
 - `username.c`: checks a username from the command line (length and allowed characters),
   printing error messages that are `#define`d like asgn3's `hangman_strings.h`.
 ```bash
