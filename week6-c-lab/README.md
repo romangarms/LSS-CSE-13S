@@ -11,14 +11,17 @@ cd LSS-CSE-13S && git pull
 cd week6-c-lab
 ```
 
-## Level 1: Find the error (`1-fixme/`)
-Five programs, each with one bug. The comment at the top says what it *should* print.
+## Level 1: Debug it (`1-debug/`)
+`cookies.c` simulates a little game: four friends pass cookies around a table, using a die,
+an `enum` of actions and a lookup array, like asgn4. It compiles, but the final result is wrong
+because of **4 bugs**. The rules, the correct result, and what should always be true are at the top of the file.
 ```bash
-cd 1-fixme
-clang -Wall -Werror 01_compass.c -o 01_compass && ./01_compass
+cd 1-debug
+clang -Wall -Werror cookies.c -o cookies && ./cookies
 ```
-Fix the one bug, recompile, and run it again until the output matches the comment.
-`04_most_chips.c` won't compile at first. Read the error: that's `-Wall` doing its job.
+Add `printf()` lines so the program shows what happens on every turn (whose turn, the roll,
+the action), and call `print_table()` after each turn. Read the trace from the top, find the first
+turn where a rule breaks, fix that bug, and run it again. Take the prints out when you're done.
 
 ## Level 2: Rock, paper, scissors (`2-rps/`)
 A program split across three `.c` files, like asgn4: `main.c` (given), `moves.c` (you write it)
