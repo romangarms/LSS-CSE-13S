@@ -1,0 +1,9 @@
+Round 1: paper vs rock -- player 1 wins
+Round 2: rock vs scissors -- player 1 wins
+Round 3: rock vs paper -- player 2 wins
+Round 4: rock vs rock -- tie
+Round 5: scissors vs rock -- player 2 wins
+Final tally:
+    1 -- ties
+    2 -- player 1
+    2 -- player 2

@@ -1,0 +1,24 @@
+Round 1: rock vs paper -- player 2 wins
+Round 2: rock vs rock -- tie
+Round 3: scissors vs rock -- player 2 wins
+Round 4: paper vs rock -- player 1 wins
+Round 5: rock vs scissors -- player 1 wins
+Round 6: rock vs paper -- player 2 wins
+Round 7: rock vs rock -- tie
+Round 8: scissors vs rock -- player 2 wins
+Round 9: paper vs rock -- player 1 wins
+Round 10: rock vs scissors -- player 1 wins
+Round 11: rock vs paper -- player 2 wins
+Round 12: rock vs rock -- tie
+Round 13: scissors vs rock -- player 2 wins
+Round 14: paper vs rock -- player 1 wins
+Round 15: rock vs scissors -- player 1 wins
+Round 16: rock vs paper -- player 2 wins
+Round 17: rock vs rock -- tie
+Round 18: scissors vs rock -- player 2 wins
+Round 19: paper vs rock -- player 1 wins
+Round 20: rock vs scissors -- player 1 wins
+Final tally:
+    4 -- ties
+    8 -- player 1
+    8 -- player 2
