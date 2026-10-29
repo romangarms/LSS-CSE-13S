@@ -41,15 +41,16 @@
 #include <string.h>
 
 // Three ways to name a constant (all three are quiz topics):
-#define MAX_LINE 64                // 1. #define: a text swap before compiling
-const int MIN_USERNAME = 3;        // 2. const: a variable the compiler won't let you change
+#define MAX_LINE 64         // 1. #define: a text swap before compiling
+const int MIN_USERNAME = 3; // 2. const: a variable the compiler won't let you change
 const int MAX_USERNAME = 12;
 const int MIN_PASSWORD = 8;
 const int MAX_PASSWORD = 20;
 const int MIN_DIFFERENT = 5;
 const char special[] = "!@#$%^&*?"; // like asgn3's punctuation[]
 
-typedef enum {                     // 3. enum: names for 0, 1, 2, ...
+typedef enum
+{ // 3. enum: names for 0, 1, 2, ...
     PW_OK,
     PW_TOO_SHORT,
     PW_TOO_LONG,
@@ -60,17 +61,38 @@ typedef enum {                     // 3. enum: names for 0, 1, 2, ...
     PW_TOO_FEW_DIFFERENT
 } Problem;
 
+bool read_line(char buf[], int size);
+
+// True if name is MIN_USERNAME to MAX_USERNAME chars long, starts with a lowercase letter,
+// and every char is a lowercase letter, a digit, or '_'.
+bool is_valid_username(const char *name)
+{
+    // Part 1: your code here
+    return false;
+}
+
+// Returns the first rule (from the list at the top) that password breaks, or PW_OK.
+Problem check_password(const char *password)
+{
+    // Part 2: your code here
+    return PW_OK;
+}
+
 // Do not modify this function.
 // Reads one line the user types into buf, without the '\n', using getchar() like asgn3.
 // Returns false if the input ended (Ctrl-D) before the line started, true otherwise.
-bool read_line(char buf[], int size) {
+bool read_line(char buf[], int size)
+{
     int len = 0;
     int ch = getchar();
-    if (ch == EOF) {
+    if (ch == EOF)
+    {
         return false;
     }
-    while (ch != '\n' && ch != EOF) {
-        if (len < size - 1) { // keep room for the '\0'; extra chars are skipped
+    while (ch != '\n' && ch != EOF)
+    {
+        if (len < size - 1)
+        { // keep room for the '\0'; extra chars are skipped
             buf[len] = ch;
             len++;
         }
@@ -80,29 +102,31 @@ bool read_line(char buf[], int size) {
     return true;
 }
 
-// True if name is MIN_USERNAME to MAX_USERNAME chars long, starts with a lowercase letter,
-// and every char is a lowercase letter, a digit, or '_'.
-bool is_valid_username(const char *name) {
-    // Part 1: your code here
-    return false;
-}
-
-// Returns the first rule (from the list at the top) that password breaks, or PW_OK.
-Problem check_password(const char *password) {
-    // Part 2: your code here
-    return PW_OK;
-}
-
 // Do not modify this function.
-void print_problem(Problem problem) {
-    switch (problem) {
-    case PW_OK: break;
-    case PW_TOO_SHORT: printf("Too short: use at least %d characters.\n", MIN_PASSWORD); break;
-    case PW_TOO_LONG: printf("Too long: use at most %d characters.\n", MAX_PASSWORD); break;
-    case PW_BAD_CHAR: printf("Use only letters, digits, and %s\n", special); break;
-    case PW_NO_UPPER: printf("Add an uppercase letter.\n"); break;
-    case PW_NO_DIGIT: printf("Add a digit.\n"); break;
-    case PW_NO_SPECIAL: printf("Add one of %s\n", special); break;
+void print_problem(Problem problem)
+{
+    switch (problem)
+    {
+    case PW_OK:
+        break;
+    case PW_TOO_SHORT:
+        printf("Too short: use at least %d characters.\n", MIN_PASSWORD);
+        break;
+    case PW_TOO_LONG:
+        printf("Too long: use at most %d characters.\n", MAX_PASSWORD);
+        break;
+    case PW_BAD_CHAR:
+        printf("Use only letters, digits, and %s\n", special);
+        break;
+    case PW_NO_UPPER:
+        printf("Add an uppercase letter.\n");
+        break;
+    case PW_NO_DIGIT:
+        printf("Add a digit.\n");
+        break;
+    case PW_NO_SPECIAL:
+        printf("Add one of %s\n", special);
+        break;
     case PW_TOO_FEW_DIFFERENT:
         printf("Use at least %d different characters.\n", MIN_DIFFERENT);
         break;
@@ -110,42 +134,51 @@ void print_problem(Problem problem) {
 }
 
 // Do not modify this function.
-int main(void) {
+int main(void)
+{
     char username[MAX_LINE];
     char password[MAX_LINE];
     char again[MAX_LINE];
 
-    while (true) {
+    while (true)
+    {
         printf("Username: ");
-        if (!read_line(username, MAX_LINE)) {
+        if (!read_line(username, MAX_LINE))
+        {
             fprintf(stderr, "\nNo input. Goodbye.\n");
             return 1;
         }
-        if (is_valid_username(username)) {
+        if (is_valid_username(username))
+        {
             break;
         }
         printf("Usernames are %d-%d chars: lowercase letters, digits or _, starting with a "
                "letter.\n",
-            MIN_USERNAME, MAX_USERNAME);
+               MIN_USERNAME, MAX_USERNAME);
     }
 
-    while (true) {
+    while (true)
+    {
         printf("Password: ");
-        if (!read_line(password, MAX_LINE)) {
+        if (!read_line(password, MAX_LINE))
+        {
             fprintf(stderr, "\nNo input. Goodbye.\n");
             return 1;
         }
         Problem problem = check_password(password);
-        if (problem != PW_OK) {
+        if (problem != PW_OK)
+        {
             print_problem(problem);
             continue;
         }
         printf("Confirm password: ");
-        if (!read_line(again, MAX_LINE)) {
+        if (!read_line(again, MAX_LINE))
+        {
             fprintf(stderr, "\nNo input. Goodbye.\n");
             return 1;
         }
-        if (strcmp(password, again) == 0) {
+        if (strcmp(password, again) == 0)
+        {
             break;
         }
         printf("The passwords don't match. Try again.\n");
