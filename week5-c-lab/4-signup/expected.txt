@@ -1,0 +1,14 @@
+Username: Usernames are 3-12 chars: lowercase letters, digits or _, starting with a letter.
+Username: Usernames are 3-12 chars: lowercase letters, digits or _, starting with a letter.
+Username: Usernames are 3-12 chars: lowercase letters, digits or _, starting with a letter.
+Username: Usernames are 3-12 chars: lowercase letters, digits or _, starting with a letter.
+Username: Usernames are 3-12 chars: lowercase letters, digits or _, starting with a letter.
+Username: Password: Too short: use at least 8 characters.
+Password: Too long: use at most 20 characters.
+Password: Use only letters, digits, and !@#$%^&*?
+Password: Add an uppercase letter.
+Password: Add a digit.
+Password: Add one of !@#$%^&*?
+Password: Use at least 5 different characters.
+Password: Confirm password: The passwords don't match. Try again.
+Password: Confirm password: Account created for sammy_13s!

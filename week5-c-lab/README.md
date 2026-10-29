@@ -1,8 +1,9 @@
 # Week 5 C Lab
 
-Practice for asgn3 (Hangman): comparing chars like `'a'` and `'z'`, searching a string,
+Practice for asgn3 (Hangman) in Levels 1 and 2: comparing chars like `'a'` and `'z'`, searching a string,
 using an array as a set of letters (`seen[c - 'a']`), reading input with `getchar()` and `EOF`,
 checking `argc` and a string's length, and compiling with `-Wall -Werror`.
+Levels 3 and 4 are quiz prep, and Levels 5 and 6 are asgn4 prep.
 Runs in your Codespace (or any Linux terminal with `clang`).
 
 ```bash
@@ -39,6 +40,33 @@ Three short challenges. The comment at the top of each file shows the goal and w
 cd 2-write
 clang -Wall -Werror letters.c -o letters && ./letters "hello world"
 echo $?                  # exit code: 1 after an error, 0 otherwise
+```
+
+## Quiz prep (Levels 3 and 4)
+Practice for the next quiz: an array as a set of ints and of chars, `strchr()`, the three ways to
+name a constant (`#define`, `const`, `enum`), `getchar()`, and the chars of a string.
+
+### Level 3: Debug it (`3-debug/`)
+`lotto.c` checks lottery tickets against a draw, using arrays as sets of numbers. It compiles,
+but the results are wrong because of **4 bugs**. The rules, the correct result, and what should
+always be true are at the top of the file.
+```bash
+cd 3-debug
+clang -Wall -Werror lotto.c -o lotto && ./lotto
+```
+Add `printf()` lines so the program shows what it's doing, and call `print_set()` to see what a
+set holds. Find the first line of output that breaks a rule, fix that bug, and run it again.
+
+### Level 4: Sign up (`4-signup/`)
+`signup.c` asks for a username and a password, like a real sign-up page, and keeps asking until
+both follow the rules. `main()` is done. You write three functions: `read_line()` (reads a line
+with `getchar()`), `is_valid_username()` and `check_password()` (length, allowed chars, an
+uppercase letter, a digit, a special char from `special[]`, and enough different chars).
+The rules are at the top of the file.
+```bash
+cd 4-signup
+clang -Wall -Werror signup.c -o signup && ./signup       # type your answers, Ctrl-D quits
+./signup < tries.txt | diff expected.txt -               # no output means every answer matches
 ```
 
 ## asgn4 prep (Levels 5 and 6)
