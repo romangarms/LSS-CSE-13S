@@ -1,14 +1,7 @@
 /*
 * File:     moves.c
-* Purpose:  Part B: write the four functions in this file.
-*
-* Hints:
-*   An enum value is a name for a number. Which statement from week 4 picks
-*   one case out of several named values?
-*   randi() returns 0 to 999999. How many slots does the spinner have, and which
-*   operator squeezes a big number into 0 to (slots - 1)?  (asgn4 section 3.2)
-*   For winner(), handle the tie first. Then how many ways can player 1 win?
-*   print_tally() prints the global wins[]. What's in wins[0], wins[1], wins[2]?
+* Purpose:  The rock-paper-scissors moves: names, random spins, and who wins.
+*           This program is already finished. Your job is only the Makefile.
 */
 
 #include "moves.h"
@@ -18,7 +11,7 @@
 #include <stdio.h>
 
 /*
-* Do not modify. The spinner has 5 slots, so it's lopsided on purpose
+* The spinner has 5 slots, so it's lopsided on purpose
 * (like asgn4's die, which has DOT on three faces). Convert a spin number
 * from 0 to 4 into a Move like this:
 *
@@ -33,7 +26,7 @@ const Move move_of_spin[5] = {
 };
 
 /*
-* Do not modify. wins[i] is the count for tally_label[i].
+* wins[i] is the count for tally_label[i].
 */
 int wins[3];
 const char *tally_label[3] = { "ties", "player 1", "player 2" };
@@ -47,7 +40,12 @@ const char *tally_label[3] = { "ties", "player 1", "player 2" };
 * Returns:      the move's name as a string
 */
 const char *name_of_move(Move move) {
-    return "?"; // Replace this line with your code.
+    switch (move) {
+    case ROCK: return "rock";
+    case PAPER: return "paper";
+    case SCISSORS: return "scissors";
+    }
+    return "?";
 }
 
 /*
@@ -59,7 +57,8 @@ const char *name_of_move(Move move) {
 * Returns:      ROCK, PAPER, or SCISSORS
 */
 Move random_move(void) {
-    return ROCK; // Replace this line with your code.
+    int spin = randi() % 5;
+    return move_of_spin[spin];
 }
 
 /*
@@ -72,7 +71,13 @@ Move random_move(void) {
 * Returns:      0 for a tie, 1 if player 1 (a) wins, 2 if player 2 (b) wins
 */
 int winner(Move a, Move b) {
-    return 0; // Replace this line with your code.
+    if (a == b) {
+        return 0;
+    }
+    if ((a == ROCK && b == SCISSORS) || (a == SCISSORS && b == PAPER) || (a == PAPER && b == ROCK)) {
+        return 1;
+    }
+    return 2;
 }
 
 /*
@@ -89,5 +94,8 @@ Final tally:
 * Returns:      nothing
 */
 void print_tally(void) {
-    // Replace this comment with your code.
+    printf(FINAL_TALLY);
+    for (int i = 0; i < 3; i++) {
+        printf(TALLY_ds, wins[i], tally_label[i]);
+    }
 }

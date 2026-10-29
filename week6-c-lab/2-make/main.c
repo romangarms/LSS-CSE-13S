@@ -15,15 +15,19 @@
 #include <string.h>
 
 /*
-* Part B: add more assert() tests here, like asgn4 asks you to.
-* Two are written for you. Add tests for winner() too.
+* Unit tests, like the assert() tests asgn4 asks you to put in main().
 */
 void run_tests(void) {
     assert(strcmp(name_of_move(ROCK), "rock") == 0);
     assert(strcmp(name_of_move(SCISSORS), "scissors") == 0);
+    assert(strcmp(name_of_move(PAPER), "paper") == 0);
+    assert(winner(ROCK, ROCK) == 0);
+    assert(winner(ROCK, SCISSORS) == 1);
+    assert(winner(SCISSORS, ROCK) == 2);
+    assert(winner(PAPER, ROCK) == 1);
+    assert(winner(PAPER, SCISSORS) == 2);
 }
 
-// Do not modify this function.
 int main(int argc, char **argv) {
     const char *result_text[3] = { "tie", "player 1 wins", "player 2 wins" };
     int rounds;
