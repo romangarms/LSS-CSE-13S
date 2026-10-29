@@ -2,8 +2,8 @@
 
 Practice for this week's quiz and for asgn4 (Left, Center, Right). Three levels:
 - **Level 1:** debug a program with `printf` (arrays as sets of ints, a `const` table).
-- **Level 2:** write a sign-up validator (`getchar()`, the chars of a string, `strchr()`,
-  a set of chars, and `#define`, `const` and `enum`).
+- **Level 2:** write a sign-up validator (the chars of a string, `strchr()`, a set of chars,
+  and `#define`, `const` and `enum`).
 - **Level 3:** write a `Makefile` for a finished program split across several files, like asgn4.
 
 Runs in your Codespace (or any Linux terminal with `clang` and `make`).
@@ -31,9 +31,9 @@ Take the prints out when you're done.
 
 ## Level 2: Sign up (`2-write/`)
 `signup.c` asks for a username and a password, like a real sign-up page, and keeps asking until
-both follow the rules. `main()` is done. You write three functions: `read_line()` (reads a line
-with `getchar()`), `is_valid_username()` and `check_password()` (length, allowed chars, an
-uppercase letter, a digit, a special char from `special[]`, and enough different chars).
+both follow the rules. `main()` and `read_line()` are done. You write two functions:
+`is_valid_username()` and `check_password()` (length, allowed chars, an uppercase letter, a digit,
+a special char from `special[]`, and enough different chars).
 The rules are at the top of the file.
 ```bash
 cd 2-write

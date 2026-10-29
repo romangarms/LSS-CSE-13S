@@ -24,18 +24,16 @@
 //   PW_TOO_FEW_DIFFERENT  fewer than MIN_DIFFERENT different chars ("Aa1!Aa1!" has only 4)
 //   PW_OK                 none of the above
 //
-// Part 1: fill in read_line(). It reads one line with getchar(), like asgn3's prompt.
-// Part 2: fill in is_valid_username().
-// Part 3: fill in check_password().
-// main() is given. To test without typing, run:   ./signup < tries.txt | diff expected.txt -
+// Part 1: fill in is_valid_username().
+// Part 2: fill in check_password().
+// read_line() and main() are given. To test without typing, run:
+//   ./signup < tries.txt | diff expected.txt -
 //
 // Hints:
-//   Part 1: Lecture 10's getchar() example and asgn3's prompt. When does a line end? The input?
-//           Every string needs a '\0' at the end. Where does it go, and is there room for it?
-//   Part 2: s[i] is one char of the string. Which rule is about s[0] only?
-//   Part 3: man 3 strchr  tells you how to ask "is this char in special[]?"
-//           Counting different chars is a set of chars (Lecture 12). Why is it safe to use
-//           a char as an index here only AFTER the PW_BAD_CHAR check?
+//   Part 1: s[i] is one char of the string. Which rule is about s[0] only?
+//   Part 2: man 3 strchr  tells you how to ask "is this char in special[]?"
+//           Counting different chars is a set of chars: Lecture 12's  int my_set[256]  has a
+//           slot for every char value. When is a char the first of its kind?
 //           Lecture 10's ctype functions can help with uppercase and digits.
 #include <ctype.h>
 #include <stdbool.h>
@@ -62,24 +60,36 @@ typedef enum {                     // 3. enum: names for 0, 1, 2, ...
     PW_TOO_FEW_DIFFERENT
 } Problem;
 
-// Reads one line from the user into buf, without the '\n'. Stores at most size - 1 chars
-// (any extra chars on the line are read and thrown away). Returns false if the input ended
-// (EOF) before any char of the line was read, true otherwise.
+// Do not modify this function.
+// Reads one line the user types into buf, without the '\n', using getchar() like asgn3.
+// Returns false if the input ended (Ctrl-D) before the line started, true otherwise.
 bool read_line(char buf[], int size) {
-    // Part 1: your code here
-    return false;
+    int len = 0;
+    int ch = getchar();
+    if (ch == EOF) {
+        return false;
+    }
+    while (ch != '\n' && ch != EOF) {
+        if (len < size - 1) { // keep room for the '\0'; extra chars are skipped
+            buf[len] = ch;
+            len++;
+        }
+        ch = getchar();
+    }
+    buf[len] = '\0';
+    return true;
 }
 
 // True if name is MIN_USERNAME to MAX_USERNAME chars long, starts with a lowercase letter,
 // and every char is a lowercase letter, a digit, or '_'.
 bool is_valid_username(const char *name) {
-    // Part 2: your code here
+    // Part 1: your code here
     return false;
 }
 
 // Returns the first rule (from the list at the top) that password breaks, or PW_OK.
 Problem check_password(const char *password) {
-    // Part 3: your code here
+    // Part 2: your code here
     return PW_OK;
 }
 
