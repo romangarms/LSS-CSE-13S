@@ -1,0 +1,9 @@
+# Ignore compiled programs (they have no extension); keep the source files.
+*
+!*/
+!*.c
+!*.sh
+!*.txt
+!*.py
+!*.md
+!.gitignore
