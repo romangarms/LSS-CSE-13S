@@ -8,3 +8,5 @@
 !*.md
 !.gitignore
 !*.h
+!Makefile
+!makefile

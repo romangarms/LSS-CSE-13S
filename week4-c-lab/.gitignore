@@ -7,3 +7,5 @@
 !*.py
 !*.md
 !.gitignore
+!Makefile
+!makefile
