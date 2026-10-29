@@ -1,8 +1,0 @@
-# Ignore compiled programs (they have no extension) and object files; keep the source files.
-*
-!*/
-!*.c
-!*.h
-!*.txt
-!*.md
-!.gitignore
