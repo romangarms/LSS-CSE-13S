@@ -1,12 +1,13 @@
 # Week 6 C Lab
 
 Practice for asgn5 (Data Compression). Two levels:
-- **Level 1:** debug two programs with `printf`: `fopen`/`fgetc`/`fputc`/`fclose`, `argv` and
-  `strcmp`, splitting a byte into nibbles with `>>` and `&`, and joining them with `<<` and `|`.
+- **Level 1:** debug an encoder and a decoder with `printf`: `fopen`/`fgetc`/`fputc`/`fclose`,
+  `argv` and `strcmp`, a lookup table, and an escape char (like asgn5's 15 nibble).
+  Everything they read and write is plain text.
 - **Level 2:** write a small ADT like asgn5's nibbler: a struct that wraps a `FILE *`,
   `calloc`/`free`, `->`, and a field that remembers what happened on the last call.
 
-Runs in your Codespace (or any Linux terminal with `clang`, `make` and `xxd`).
+Runs in your Codespace (or any Linux terminal with `clang` and `make`).
 
 ```bash
 git clone https://github.com/romangarms/LSS-CSE-13S.git   # skip if you already cloned it
@@ -15,21 +16,23 @@ cd week6-c-lab
 ```
 
 ## Level 1: Debug it (`1-debug/`)
-`tohex` writes a file as hex digits, exactly like `xxd -p`. `fromhex` turns the hex digits
-back into the original file. They compile, but there are **4 bugs**: 2 in `tohex.c` and 2 in
-`fromhex.c`. How each program works, the correct result, and what should always be true are
-at the top of each file. The `Makefile` is done: look at how `all` makes both programs.
+`encode` writes a text file in "number code": common letters become digits (`meet` becomes
+`m337`), and a real digit gets a `#` in front (`10` becomes `#1#0`). `decode` turns the code
+back into the original text. They work like asgn5's compress and decompress, but the files
+are plain text you can read. They compile, but there are **4 bugs**: 2 in `encode.c` and 2 in
+`decode.c`. How each program works, the correct result, and what should always be true are at
+the top of each file. The `Makefile` is done: look at how `all` makes both programs.
 ```bash
 cd 1-debug
 make
-./tohex note.txt -o note.hex && cat note.hex
-xxd -p note.txt | diff - note.hex          # no output means tohex matches xxd
-./fromhex note.hex -o note.out && diff -us note.txt note.out
-./fromhex odd.hex -o odd.out && xxd odd.out
+./encode note.txt -o note.code && cat note.code
+diff -us expected.code note.code             # "identical" means encode works
+./decode expected.code -o note.out && diff -us note.txt note.out
+./decode cut.code -o cut.out && cat -A cut.out
 ```
-Fix `tohex` first, since `fromhex` reads what `tohex` writes. Add `printf()` lines so the
-program shows what it's doing (each char and its two nibbles), find the first value that
-breaks a rule, fix that bug, run `make` and try again. Take the prints out when you're done.
+Add `printf()` lines so each program shows what it's doing (each char it reads and what it
+writes), find the first value that breaks a rule, fix that bug, run `make` and try again.
+Take the prints out when you're done.
 
 ## Level 2: Write a line writer (`2-write/`)
 `numlines` copies a text file and puts a line number in front of every line. `numlines.c`,

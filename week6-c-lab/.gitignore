@@ -10,4 +10,5 @@
 !*.h
 !Makefile
 !makefile
-!odd.hex
+!expected.code
+!cut.code

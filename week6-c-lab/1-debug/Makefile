@@ -2,19 +2,19 @@
 # `make` makes the first target, all, which needs both programs.
 
 .PHONY: all clean
-all: tohex fromhex
+all: encode decode
 
-tohex: tohex.o
-	clang tohex.o -o tohex
+encode: encode.o
+	clang encode.o -o encode
 
-fromhex: fromhex.o
-	clang fromhex.o -o fromhex
+decode: decode.o
+	clang decode.o -o decode
 
-tohex.o: tohex.c
-	clang -c -Wall -Werror -gdwarf-4 tohex.c
+encode.o: encode.c
+	clang -c -Wall -Werror -gdwarf-4 encode.c
 
-fromhex.o: fromhex.c
-	clang -c -Wall -Werror -gdwarf-4 fromhex.c
+decode.o: decode.c
+	clang -c -Wall -Werror -gdwarf-4 decode.c
 
 clean:
-	rm -f tohex fromhex *.o note.hex note.out odd.out
+	rm -f encode decode *.o note.code note.out cut.out
