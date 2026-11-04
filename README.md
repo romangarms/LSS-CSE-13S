@@ -8,6 +8,6 @@ Practice materials from Learning Support Services (LSS) tutoring sessions for UC
 | [`week3-c-lab/`](week3-c-lab/) | C predict-the-output, fix-the-program, asgn2 warm-ups, a bonus robot command parser, and pair challenges |
 | [`week4-c-lab/`](week4-c-lab/) | Quiz prep for Lecture 10: find-the-error and three short write-it challenges (assert, argc/argv, chars, ctype, strlen/sizeof, switch) |
 | [`week5-c-lab/`](week5-c-lab/) | Quiz and asgn4 (LCR) prep: debug a lottery checker with printf (sets of ints), write a sign-up validator (getchar, strchr, sets of chars, #define/const/enum), and write a Makefile |
-| [`week6-c-lab/`](week6-c-lab/) | asgn5 (Data Compression) prep: debug a plain-text encoder and decoder with printf (file I/O, argv, lookup table, escape char), and write a small file-wrapping ADT (struct, calloc/free, ->) |
+| [`week6-c-lab/`](week6-c-lab/) | asgn5 (Data Compression) prep: debug a plain-text encoder and decoder with printf (file I/O, argv, lookup table, escape char), and write a file copier (fopen, fgetc/fputc, EOF, fclose) |
 
 These are practice exercises, not course assignments. Please follow the course's academic integrity policy.

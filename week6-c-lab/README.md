@@ -4,8 +4,8 @@ Practice for asgn5 (Data Compression). Two levels:
 - **Level 1:** debug an encoder and a decoder with `printf`: `fopen`/`fgetc`/`fputc`/`fclose`,
   `argv` and `strcmp`, a lookup table, and an escape char (like asgn5's 15 nibble).
   Everything they read and write is plain text.
-- **Level 2:** write a small ADT like asgn5's nibbler: a struct that wraps a `FILE *`,
-  `calloc`/`free`, `->`, and a field that remembers what happened on the last call.
+- **Level 2:** write a program that copies a file in ALL CAPS: open two files with `fopen`
+  (and check for `NULL`), loop with `fgetc`/`fputc` until `EOF`, then `fclose`.
 
 Runs in your Codespace (or any Linux terminal with `clang` and `make`).
 
@@ -34,18 +34,17 @@ Add `printf()` lines so each program shows what it's doing (each char it reads a
 writes), find the first value that breaks a rule, fix that bug, run `make` and try again.
 Take the prints out when you're done.
 
-## Level 2: Write a line writer (`2-write/`)
-`numlines` copies a text file and puts a line number in front of every line. `numlines.c`,
-`linewriter.h` and the `Makefile` are done. You write the three functions in `linewriter.c`:
-`lw_open()`, `lw_putc()` and `lw_close()`. They work like asgn5's `nib_open()`,
-`nib_put_nibble()` and `nib_close()`, but for line numbers. The rules are at the top of the file.
+## Level 2: Shout (`2-write/`)
+`shout` copies a text file in uppercase and prints how many chars and lines it copied, using
+the same file calls as asgn5's `read_file_example.c` and `write_file_example.c`. The usage
+check is done. You write the three TODO parts of `main()` in `shout.c`: open the files, copy
+the chars, and close the files. The rules and the correct result are at the top of the file.
 ```bash
 cd 2-write
-make && ./numlines todo.txt -o todo.out
-diff -us expected.txt todo.out             # "identical" means it works
-./numlines todo.txt -o nofolder/todo.out; echo $?   # should print an error, then 1
+clang -Wall -Werror shout.c -o shout
+./shout poem.txt -o poem.out && diff -us expected.txt poem.out   # "identical" means it works
+./shout nope.txt -o poem.out; echo $?          # should print an error, then 1
 ```
-Until `lw_open()` is written it returns `NULL`, so `numlines` says it can't open the output file.
 
 ## Start over
 From `week6-c-lab/`, this undoes your edits and removes files you created:

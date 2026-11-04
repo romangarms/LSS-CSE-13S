@@ -1,7 +1,0 @@
-asgn5 to do list
-
-write the Makefile
-nib_open and nib_close
-nib_get_nibble and nib_put_nibble
-compress, then decompress
-diff -us against the reference programs
