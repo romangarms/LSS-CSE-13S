@@ -21,8 +21,8 @@
 //   1
 //
 // Hints:
-//   asgn5 section 3.1.1 (read_file_example.c) and 3.1.2 (write_file_example.c) show every
-//   call you need, in order. The difference is that this program uses both files at once.
+//   Your fixed redact.c from Level 1 uses the same calls. So do asgn5 section 3.1.1
+//   (read_file_example.c) and 3.1.2 (write_file_example.c).
 //   What type should the variable that holds fgetc()'s return value be? Why? (section 3.1.1)
 //   fputc() is like putchar(), but you also tell it which file.
 #include <ctype.h>

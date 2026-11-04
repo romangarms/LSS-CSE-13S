@@ -10,5 +10,3 @@
 !*.h
 !Makefile
 !makefile
-!expected.code
-!cut.code
