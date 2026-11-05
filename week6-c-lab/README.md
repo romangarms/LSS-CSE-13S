@@ -1,9 +1,10 @@
 # Week 6 C Lab
 
 Practice for asgn5 (Data Compression): reading and writing files in C. Two levels:
-- **Level 1:** fix the file calls in a short program: `fopen` modes, `NULL` checks, the
-  `fgetc` loop and `EOF`, `fputc`, `fclose`.
-- **Level 2:** write those calls yourself in a program that copies a file in ALL CAPS.
+- **Level 1:** fix the file calls in a tiny program: `fopen` modes, the `fgetc` loop and
+  `EOF`, `fputc`, `fclose`.
+- **Level 2:** write a new program from scratch that reads a file and writes a report, with
+  the error handling asgn5 asks for: the `argc`/`argv` check, `NULL` checks, `stderr` and `exit(1)`.
 
 Runs in your Codespace (or any Linux terminal with `clang`).
 
@@ -14,26 +15,28 @@ cd week6-c-lab
 ```
 
 ## Level 1: Fix the file calls (`1-debug/`)
-`redact` copies a text file and turns every digit into `*`. The copying part is one `if` and
-is correct. The **4 bugs** are all in the file calls. The correct result is at the top of
-`redact.c`. Compare the calls with asgn5's `read_file_example.c` and `write_file_example.c`.
+`redact` copies `note.txt` to `note.out` and turns every digit into `*`. The copying part is
+one `if` and is correct. The **3 bugs** are all in the file calls. The correct result is at
+the top of `redact.c`. Compare the calls with asgn5's `read_file_example.c` and
+`write_file_example.c`.
 ```bash
 cd 1-debug
 clang -Wall -Werror redact.c -o redact
-./redact note.txt -o note.out && cat -A note.out
+./redact && cat -A note.out
 diff -us expected.txt note.out              # "identical" means it works
-./redact nope.txt -o note.out; echo $?      # should print an error, then 1
 ```
 
-## Level 2: Shout (`2-write/`)
-`shout` copies a text file in uppercase and prints how many chars and lines it copied. The
-usage check is done. You write the three TODO parts of `main()` in `shout.c`: open the files,
-copy the chars, and close the files. The rules and the correct result are at the top of the file.
+## Level 2: Write a file report (`2-write/`)
+`report` reads a text file and writes how many chars, lines and digits it has to another
+file. You write all of `main()`, including the error handling: a usage message, a message
+when a file can't be opened, and `exit(1)`. Your fixed `redact.c` shows the file calls.
+The rules and the correct result are at the top of `report.c`.
 ```bash
 cd 2-write
-clang -Wall -Werror shout.c -o shout
-./shout poem.txt -o poem.out && diff -us expected.txt poem.out   # "identical" means it works
-./shout nope.txt -o poem.out; echo $?          # should print an error, then 1
+clang -Wall -Werror report.c -o report
+./report shopping.txt -o report.out && diff -us expected.txt report.out
+./report shopping.txt report.out; echo $?          # should print the usage message, then 1
+./report nope.txt -o report.out; echo $?           # should print an error, then 1
 ```
 
 ## Start over
