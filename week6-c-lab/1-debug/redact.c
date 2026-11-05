@@ -21,20 +21,26 @@
 //   cat -A note.out shows chars you can't normally see, like an extra one at the end.
 #include <stdio.h>
 
-int main(void) {
+int main(void)
+{
+    // section 1
     FILE *fin = fopen("note.txt", "r");
     FILE *fout = fopen("note.out", "r");
 
     int ch = 0;
-    while (ch != EOF) {
+    while (ch != EOF)
+    {
+        // section 2
         ch = fgetc(fin);
-        if (ch >= '0' && ch <= '9') {
+        if (ch >= '0' && ch <= '9')
+        {
             ch = '*';
         }
+        // section 3
         putchar(ch);
     }
 
+    // section 4
     fclose(fin);
-    fclose(fout);
     return 0;
 }
