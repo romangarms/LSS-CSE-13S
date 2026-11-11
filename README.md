@@ -9,5 +9,6 @@ Practice materials from Learning Support Services (LSS) tutoring sessions for UC
 | [`week4-c-lab/`](week4-c-lab/) | Quiz prep for Lecture 10: find-the-error and three short write-it challenges (assert, argc/argv, chars, ctype, strlen/sizeof, switch) |
 | [`week5-c-lab/`](week5-c-lab/) | Quiz and asgn4 (LCR) prep: debug a lottery checker with printf (sets of ints), write a sign-up validator (getchar, strchr, sets of chars, #define/const/enum), and write a Makefile |
 | [`week6-c-lab/`](week6-c-lab/) | asgn5 (Data Compression) prep, file I/O basics: fix the file calls in a tiny program, then write a file report from scratch with asgn5-style error handling (argv, NULL checks, stderr, exit) |
+| [`week7-c-lab/`](week7-c-lab/) | asgn6 (unique) prep, trees in C: write a family tree's `calloc()` constructor, a recursive count, and a post-order free |
 
 These are practice exercises, not course assignments. Please follow the course's academic integrity policy.
