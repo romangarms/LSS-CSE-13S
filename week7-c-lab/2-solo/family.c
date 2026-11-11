@@ -19,7 +19,7 @@
 //   free Ben
 //   free Sam
 //
-// Hints: calloc() needs the size of the whole struct. Each recursive function needs a
+// Hints: person_new() works like pet_new() from the demo. Each recursive function needs a
 // base case for NULL. Spec section 2.3 says which traversal order to use for freeing.
 #include <stdio.h>
 #include <stdlib.h>
