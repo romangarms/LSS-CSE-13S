@@ -1,0 +1,525 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<style>:root{color-scheme:light}body{margin:0}[hidden]{display:none!important}</style>
+<title>Tree Cards</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;600&display=swap">
+<style>
+/* Layout: one column. Step tabs on top, the "table" with the card tree in the middle, a control panel and a terminal box below. */
+:root {
+  --bg: #eef1f4;
+  --table: #dfe5ea;
+  --card: #fffdf7;
+  --card-edge: #c9d1d9;
+  --ink: #1c2631;
+  --muted: #5b6875;
+  --accent: #2b59c3;
+  --accent-ink: #ffffff;
+  --hot: #e2a019;
+  --good: #23824f;
+  --bad: #c03a33;
+  --term: #1b2129;
+  --term-ink: #d8e2ec;
+  --line: #9aa7b4;
+  --font-display: "Space Grotesk", "Segoe UI", system-ui, sans-serif;
+  --font-body: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #12171c; --table: #1a2128; --card: #262e37; --card-edge: #3a4550; --ink: #e5ebf1;
+    --muted: #9aa8b6; --accent: #7ea2ff; --accent-ink: #0f1620; --hot: #f0b63c; --good: #4cc282;
+    --bad: #ff7a70; --term: #0b0f13; --term-ink: #d8e2ec; --line: #5d6b78; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #12171c; --table: #1a2128; --card: #262e37; --card-edge: #3a4550; --ink: #e5ebf1;
+  --muted: #9aa8b6; --accent: #7ea2ff; --accent-ink: #0f1620; --hot: #f0b63c; --good: #4cc282;
+  --bad: #ff7a70; --term: #0b0f13; --term-ink: #d8e2ec; --line: #5d6b78; color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body {
+  background: var(--bg); color: var(--ink); font-family: var(--font-body); font-size: 16px; line-height: 1.5;
+  padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 20px 40px;
+}
+.wrap { max-width: 980px; margin: 0 auto; display: flex; flex-direction: column; gap: 16px; }
+header h1 { font-family: var(--font-display); font-size: 1.9rem; margin: 0; text-wrap: balance; letter-spacing: -0.01em; }
+header p { margin: 4px 0 0; color: var(--muted); max-width: 65ch; }
+nav.steps { display: flex; flex-wrap: wrap; gap: 8px; }
+nav.steps button {
+  font: 600 0.95rem var(--font-body); padding: 8px 14px; border-radius: 999px; border: 1px solid var(--card-edge);
+  background: var(--card); color: var(--ink); cursor: pointer;
+}
+nav.steps button[aria-selected="true"] { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+nav.steps button .n { font-family: var(--font-mono); opacity: 0.75; margin-right: 6px; }
+button:focus-visible, input:focus-visible, select:focus-visible { outline: 3px solid var(--hot); outline-offset: 2px; }
+.table { background: var(--table); border-radius: 14px; padding: 12px; overflow-x: auto; }
+.table svg { display: block; width: 100%; height: auto; max-height: 62vh; min-height: 160px; }
+.panel { display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr); gap: 16px; }
+@media (max-width: 720px) { .panel { grid-template-columns: minmax(0, 1fr); } }
+.box { background: var(--card); border: 1px solid var(--card-edge); border-radius: 12px; padding: 14px 16px; display: flex; flex-direction: column; gap: 10px; min-width: 0; }
+.box h2 { font-family: var(--font-display); font-size: 1.15rem; margin: 0; }
+.label.cmd { text-transform: none; letter-spacing: 0; font-family: var(--font-mono); font-weight: 400; }
+.label { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); font-weight: 600; }
+.prompt { font-size: 1.15rem; }
+.prompt b, .mono { font-family: var(--font-mono); }
+.msg { min-height: 1.5em; font-weight: 500; }
+.msg.good { color: var(--good); }
+.msg.bad { color: var(--bad); }
+.row { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.btn {
+  font: 600 1rem var(--font-body); padding: 10px 16px; border-radius: 10px; cursor: pointer;
+  border: 1px solid var(--card-edge); background: var(--bg); color: var(--ink);
+}
+.btn.primary { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+.btn:disabled { opacity: 0.4; cursor: default; }
+.choices { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+.choices .btn { padding: 12px 6px; display: flex; flex-direction: column; align-items: center; gap: 2px; line-height: 1.2; }
+.choices .btn small { font-weight: 400; font-size: 0.78rem; color: var(--muted); }
+.keys { font-size: 0.8rem; color: var(--muted); }
+.btn.small { font-size: 0.85rem; padding: 6px 10px; }
+.hand { display: flex; flex-wrap: wrap; gap: 6px; }
+.chip { font-family: var(--font-mono); font-size: 0.9rem; padding: 3px 8px; border-radius: 6px; border: 1px solid var(--card-edge); background: var(--bg); color: var(--muted); }
+.chip.now { border-color: var(--hot); color: var(--ink); font-weight: 600; box-shadow: 0 0 0 2px var(--hot); }
+.chip.done { text-decoration: line-through; opacity: 0.55; }
+pre.term { background: var(--term); color: var(--term-ink); font: 0.9rem/1.45 var(--font-mono); padding: 12px 14px; border-radius: 10px; margin: 0; overflow-x: auto; min-height: 3em; white-space: pre; }
+.code { font: 0.85rem/1.5 var(--font-mono); background: var(--bg); border-radius: 8px; padding: 10px 12px; margin: 0; overflow-x: auto; white-space: pre; }
+input[type="text"], select { font: 1rem var(--font-mono); padding: 8px 10px; border-radius: 8px; border: 1px solid var(--card-edge); background: var(--bg); color: var(--ink); min-width: 0; }
+input[type="text"] { flex: 1 1 220px; }
+.puzzles { display: flex; flex-direction: column; gap: 8px; margin: 0; padding: 0; list-style: none; }
+.puzzles li { display: flex; gap: 10px; align-items: flex-start; }
+.tick { flex: 0 0 auto; width: 1.4em; height: 1.4em; border-radius: 50%; border: 2px solid var(--card-edge); display: inline-grid; place-items: center; font-size: 0.8rem; font-weight: 700; margin-top: 2px; }
+.tick.on { background: var(--good); border-color: var(--good); color: var(--accent-ink); }
+.stats { display: flex; flex-wrap: wrap; gap: 6px 18px; font-size: 0.95rem; color: var(--muted); }
+.stats b { color: var(--ink); font-family: var(--font-mono); }
+svg .edge { stroke: var(--line); stroke-width: 2; }
+svg .card rect { fill: var(--card); stroke: var(--card-edge); stroke-width: 1.5; }
+svg .card text { fill: var(--ink); font-family: var(--font-mono); }
+svg .card .cnt { fill: var(--muted); font-size: 11px; }
+svg .card.cur rect { stroke: var(--hot); stroke-width: 4; }
+svg .card.path rect { stroke: var(--accent); stroke-width: 2.5; }
+svg .card.found rect { stroke: var(--good); stroke-width: 4; }
+svg .card.printed rect { fill: var(--table); stroke: var(--good); }
+svg .card.clickable { cursor: pointer; }
+svg .card.clickable:hover rect { stroke: var(--accent); stroke-width: 3; }
+svg .card.flash rect { stroke: var(--bad); stroke-width: 4; }
+svg .ghost rect { fill: none; stroke: var(--card-edge); stroke-dasharray: 5 4; }
+svg .ghost text, svg .null text { fill: var(--muted); font-family: var(--font-mono); font-size: 11px; }
+svg .null rect { fill: none; stroke: var(--hot); stroke-dasharray: 4 3; stroke-width: 2; }
+svg .null line { stroke: var(--hot); stroke-dasharray: 4 3; stroke-width: 2; }
+svg .empty { fill: var(--muted); font-family: var(--font-body); font-size: 15px; }
+@media (prefers-reduced-motion: no-preference) {
+  svg .card { transition: opacity 0.25s; }
+}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header>
+    <h1>Tree Cards</h1>
+    <p>Build a binary search tree one card at a time, then search it, print it in order, and free it. The same steps as asgn6's <span class="mono">tree_add</span>, <span class="mono">tree_print</span> and <span class="mono">tree_free</span>.</p>
+  </header>
+
+  <nav class="steps" role="tablist" aria-label="Steps">
+    <button role="tab" data-mode="build" aria-selected="true"><span class="n">1</span>Build</button>
+    <button role="tab" data-mode="search" aria-selected="false"><span class="n">2</span>Search</button>
+    <button role="tab" data-mode="print" aria-selected="false"><span class="n">3</span>Print in order</button>
+    <button role="tab" data-mode="free" aria-selected="false"><span class="n">4</span>Free</button>
+  </nav>
+
+  <div class="table"><svg id="tree" viewBox="0 0 600 200" role="img" aria-label="The tree"></svg></div>
+
+  <div class="panel">
+    <section class="box" id="main-box" aria-live="polite"></section>
+    <section class="box" id="side-box"></section>
+  </div>
+</div>
+
+<script>
+(function () {
+  const DECKS = {
+    mixed: [50, 30, 70, 40, 20, 80, 60, 30],
+    sorted: [20, 30, 40, 50, 60, 70, 80],
+    asgn: [222, 333, 111, 111, 333, 111]
+  };
+  const DECK_NAMES = {
+    mixed: "Round 1: shuffled (50 30 70 40 20 80 60 30)",
+    sorted: "Round 2: same cards, sorted (20 30 40 ... 80)",
+    asgn: "asgn6 example (222 333 111 111 333 111)"
+  };
+
+  let mode = "build";
+  let root = null;
+  let nextId = 1;
+  // build state
+  let deckName = "mixed", deck = DECKS.mixed.slice(), deckPos = 0, cur = null, walkPath = [];
+  // search state
+  let targets = [], tIdx = 0, sCur = null, sPath = [], sDone = false, sSteps = 0;
+  // print / free state
+  let printed = [], freed = [], flashId = null;
+  // play state
+  let playText = "4 2 6 1 3 5 7";
+  let msg = { text: "", kind: "" };
+
+  const $ = (s) => document.querySelector(s);
+  const svg = $("#tree"), mainBox = $("#main-box"), sideBox = $("#side-box");
+  const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+
+  function newNode(key) { return { id: nextId++, key, count: 1, left: null, right: null }; }
+  function insert(r, key) {
+    if (!r) return newNode(key);
+    let n = r;
+    while (true) {
+      if (key === n.key) { n.count++; return r; }
+      const d = key < n.key ? "left" : "right";
+      if (!n[d]) { n[d] = newNode(key); return r; }
+      n = n[d];
+    }
+  }
+  function nodes(r, out = []) { if (r) { nodes(r.left, out); out.push(r); nodes(r.right, out); } return out; }
+  function postorder(r, out = []) { if (r) { postorder(r.left, out); postorder(r.right, out); out.push(r); } return out; }
+  function height(r) { return r ? 1 + Math.max(height(r.left), height(r.right)) : 0; }
+  function shape(r) { return r ? "(" + shape(r.left) + r.key + shape(r.right) + ")" : "."; }
+  function dumpLines(n, depth, mark, out) {
+    const pad = "    ".repeat(depth);
+    if (!n) { out.push(pad + mark + " NULL"); return; }
+    dumpLines(n.right, depth + 1, "/", out);
+    out.push(pad + mark + " " + n.key + " (x" + n.count + ")");
+    dumpLines(n.left, depth + 1, "\\", out);
+  }
+  function dump(r) { if (!r) return "(empty tree: root is NULL)"; const o = []; dumpLines(r, 0, "<", o); return o.join("\n"); }
+  function printOut(list) { return list.map((n) => n.count + " " + n.key).join("\n"); }
+
+  // ---------- drawing ----------
+  const CW = 58, CH = 42, COL = 70, ROW = 76, PAD = 20;
+  function layout(r) {
+    const pos = new Map();
+    let rank = 0;
+    (function walk(n, d) { if (!n) return; walk(n.left, d + 1); pos.set(n.id, { x: PAD + CW / 2 + rank * COL, y: PAD + CH / 2 + d * ROW }); rank++; walk(n.right, d + 1); })(r, 0);
+    return { pos, cols: rank };
+  }
+  function draw(opts = {}) {
+    const { pos, cols } = layout(root);
+    const h = height(root);
+    const showNullOf = opts.nullsOf || null;
+    const w = Math.max(360, PAD * 2 + CW + Math.max(cols - 1, 0) * COL + (showNullOf ? COL : 0));
+    const ht = Math.max(150, PAD * 2 + CH + Math.max(h - 1, 0) * ROW + (showNullOf ? ROW : 0));
+    let s = "";
+    if (!root) {
+      s += '<text class="empty" x="' + w / 2 + '" y="' + ht / 2 + '" text-anchor="middle">Empty table: root is NULL</text>';
+    }
+    // edges
+    (function edges(n) {
+      if (!n) return;
+      const p = pos.get(n.id);
+      for (const d of ["left", "right"]) {
+        if (n[d]) { const c = pos.get(n[d].id); s += '<line class="edge" x1="' + p.x + '" y1="' + (p.y + CH / 2) + '" x2="' + c.x + '" y2="' + (c.y - CH / 2) + '"/>'; edges(n[d]); }
+      }
+    })(root);
+    // NULL slots of the current node
+    if (showNullOf) {
+      const p = pos.get(showNullOf.id);
+      for (const d of ["left", "right"]) {
+        if (!showNullOf[d]) {
+          const x = p.x + (d === "left" ? -COL / 2 : COL / 2), y = p.y + ROW * 0.85;
+          s += '<g class="null"><line x1="' + p.x + '" y1="' + (p.y + CH / 2) + '" x2="' + x + '" y2="' + (y - 13) + '"/>' +
+               '<rect x="' + (x - 24) + '" y="' + (y - 13) + '" width="48" height="26" rx="6"/>' +
+               '<text x="' + x + '" y="' + (y + 4) + '" text-anchor="middle">NULL</text></g>';
+        }
+      }
+    }
+    // cards
+    for (const n of nodes(root)) {
+      const p = pos.get(n.id);
+      const gone = opts.freed && opts.freed.includes(n.id);
+      const cls = ["card"];
+      if (gone) {
+        s += '<g class="ghost"><rect x="' + (p.x - CW / 2) + '" y="' + (p.y - CH / 2) + '" width="' + CW + '" height="' + CH + '" rx="6"/>' +
+             '<text x="' + p.x + '" y="' + (p.y + 4) + '" text-anchor="middle">freed</text></g>';
+        continue;
+      }
+      if (opts.cur && opts.cur.id === n.id) cls.push("cur");
+      else if (opts.found && opts.found.id === n.id) cls.push("found");
+      else if (opts.path && opts.path.includes(n.id)) cls.push("path");
+      if (opts.printed && opts.printed.includes(n.id)) cls.push("printed");
+      if (opts.clickable) cls.push("clickable");
+      if (flashId === n.id) cls.push("flash");
+      s += '<g class="' + cls.join(" ") + '" data-id="' + n.id + '"' + (opts.clickable ? ' tabindex="0" role="button" aria-label="card ' + n.key + '"' : "") + '>' +
+           '<rect x="' + (p.x - CW / 2) + '" y="' + (p.y - CH / 2) + '" width="' + CW + '" height="' + CH + '" rx="6"/>' +
+           '<text x="' + p.x + '" y="' + (p.y + 6) + '" text-anchor="middle" font-size="18" font-weight="600">' + n.key + '</text>' +
+           (n.count > 1 ? '<text class="cnt" x="' + (p.x + CW / 2 - 4) + '" y="' + (p.y - CH / 2 + 12) + '" text-anchor="end">x' + n.count + '</text>' : "") +
+           '</g>';
+    }
+    svg.setAttribute("viewBox", "0 0 " + w + " " + ht);
+    svg.innerHTML = s;
+    if (opts.clickable) {
+      svg.querySelectorAll(".card.clickable").forEach((g) => {
+        const id = Number(g.dataset.id);
+        g.addEventListener("click", () => opts.clickable(id));
+        g.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); opts.clickable(id); } });
+      });
+    }
+  }
+  function drawOne(n, depth) {
+    const w = 360, ht = 210, cx = 180, cy = 62, bw = 96, bh = 64;
+    let s = '<text class="empty" x="' + cx + '" y="20" text-anchor="middle">level ' + (depth + 1) + '</text>';
+    for (const [d, x] of [["left", cx - 110], ["right", cx + 110]]) {
+      s += '<line class="edge" x1="' + cx + '" y1="' + (cy + bh / 2) + '" x2="' + x + '" y2="152"/>' +
+           '<g class="ghost"><rect x="' + (x - 34) + '" y="152" width="68" height="44" rx="6"/>' +
+           '<text x="' + x + '" y="171" text-anchor="middle">' + d + '</text><text x="' + x + '" y="187" text-anchor="middle">?</text></g>';
+    }
+    s += '<g class="card cur"><rect x="' + (cx - bw / 2) + '" y="' + (cy - bh / 2) + '" width="' + bw + '" height="' + bh + '" rx="8"/>' +
+         '<text x="' + cx + '" y="' + (cy + 9) + '" text-anchor="middle" font-size="28" font-weight="600">' + n.key + '</text>' +
+         (n.count > 1 ? '<text class="cnt" x="' + (cx + bw / 2 - 6) + '" y="' + (cy - bh / 2 + 14) + '" text-anchor="end">x' + n.count + '</text>' : "") + '</g>';
+    svg.setAttribute("viewBox", "0 0 " + w + " " + ht);
+    svg.innerHTML = s;
+  }
+  function byId(id) { return nodes(root).find((n) => n.id === id); }
+  function msgHTML() { return '<div class="msg ' + msg.kind + '">' + msg.text + "</div>"; }
+  function say(text, kind = "") { msg = { text, kind }; }
+
+  // ---------- 1. Build ----------
+  function startDeck(name, custom) {
+    deckName = name;
+    deck = custom ? custom.slice() : DECKS[name].slice();
+    root = null; nextId = 1; deckPos = 0; cur = null; walkPath = []; undoStack = [];
+    resetLater();
+    say("");
+  }
+  function resetLater() { targets = []; printed = []; freed = []; sDone = false; }
+  let undoStack = [];
+  function snap() { return JSON.stringify({ root, nextId, deckPos, cur: cur ? cur.id : null, walkPath }); }
+  function undo() {
+    if (!undoStack.length) return;
+    const st = JSON.parse(undoStack.pop());
+    root = st.root; nextId = st.nextId; deckPos = st.deckPos; walkPath = st.walkPath;
+    cur = st.cur === null ? null : byId(st.cur);
+    resetLater(); say("Undid the last move."); render();
+  }
+  function buildChoice(choice) {
+    const key = deck[deckPos];
+    undoStack.push(snap());
+    resetLater();
+    if (!root) {
+      root = newNode(key); deckPos++;
+      say("The tree was empty, so " + key + " becomes the root. (In tree_add, saved points at tree-&gt;root.)");
+      cur = null; walkPath = []; return render();
+    }
+    const at = cur || root;
+    if (choice === "same") {
+      at.count++; deckPos++; cur = null; walkPath = [];
+      say(at.key + "'s count goes up to " + at.count + ". No new card.");
+      return render();
+    }
+    walkPath.push(at.id);
+    if (!at[choice]) {
+      at[choice] = newNode(key); deckPos++; cur = null; walkPath = [];
+      say(at.key + "'s " + choice + " was NULL, so " + key + " goes there. That NULL is the pointer saved points to.");
+    } else {
+      cur = at[choice];
+      say("Went " + choice + " to " + cur.key + ".");
+    }
+    render();
+  }
+  function placeRest() {
+    undoStack.push(snap()); resetLater();
+    while (deckPos < deck.length) { root = insert(root, deck[deckPos]); deckPos++; }
+    cur = null; walkPath = []; say("Placed the rest of the deck.", "good"); render();
+  }
+  function renderBuild() {
+    const done = deckPos >= deck.length;
+    const key = deck[deckPos];
+    const at = cur || root;
+    draw({ cur: done ? null : at, path: walkPath, nullsOf: done || !root ? null : at });
+    let h = '<div class="label">Your hand</div><div class="hand">' +
+      deck.map((k, i) => '<span class="chip ' + (i < deckPos ? "done" : i === deckPos ? "now" : "") + '">' + k + "</span>").join("") + "</div>";
+    if (done) {
+      h += '<div class="prompt">All cards are placed. The tree is ' + height(root) + " levels tall.</div>" + msgHTML() +
+        '<div class="row"><button class="btn primary" id="go-search">Next: Search</button></div>';
+    } else if (!root) {
+      h += '<div class="prompt">Card <b>' + key + "</b>. The table is empty (root is NULL).</div>" + msgHTML() +
+        '<div class="row"><button class="btn primary" data-c="root">Place it as the root</button></div>';
+    } else {
+      h += '<div class="prompt">Card <b>' + key + "</b> is at <b>" + at.key + "</b>. Which way?</div>" + msgHTML() +
+        '<div class="choices"><button class="btn" data-c="left">&larr; Left<small>smaller</small></button>' +
+        '<button class="btn" data-c="same">Same<small>count +1</small></button>' +
+        '<button class="btn" data-c="right">Right &rarr;<small>bigger</small></button></div>' +
+        '<div class="keys">Keyboard: &larr; left, &darr; same, &rarr; right</div>';
+    }
+    h += '<div class="row"><button class="btn small" id="undo"' + (undoStack.length ? "" : " disabled") + '>Undo</button></div>';
+    mainBox.innerHTML = '<h2>1. Build the tree</h2>' + h;
+    mainBox.querySelectorAll("[data-c]").forEach((b) => b.addEventListener("click", () => buildChoice(b.dataset.c)));
+    const gs = $("#go-search"); if (gs) gs.addEventListener("click", () => setMode("search"));
+    $("#undo").addEventListener("click", undo);
+    sideBox.innerHTML = '<h2>Deck</h2><div class="row"><select id="deck">' +
+      Object.keys(DECKS).map((k) => '<option value="' + k + '"' + (k === deckName ? " selected" : "") + ">" + DECK_NAMES[k] + "</option>").join("") +
+      (deckName === "custom" ? '<option value="custom" selected>Your own cards</option>' : "") +
+      '</select></div><div class="row"><input type="text" id="custom" placeholder="Your own: 8 3 10 1 6" aria-label="Your own cards">' +
+      '<button class="btn small" id="use-custom">Use these</button></div>' +
+      '<div class="row"><button class="btn small" id="restart">Start over</button><button class="btn small" id="rest"' + (done ? " disabled" : "") + '>Place the rest for me</button></div>' +
+      '<div class="label">Spec 2.2: tree_add</div><pre class="code">saved = &amp;(tree-&gt;root)\ncurrent_node = tree-&gt;root\nwhile current_node != NULL:\n    equal?   count += 1, return\n    smaller? saved = &amp;(current_node-&gt;left)\n             go left\n    bigger?  saved = &amp;(current_node-&gt;right)\n             go right\nnew node, count = 1\n*saved = new_node</pre>';
+    $("#deck").addEventListener("change", (e) => { if (e.target.value !== "custom") { startDeck(e.target.value); render(); } });
+    $("#restart").addEventListener("click", () => { deckName === "custom" ? startDeck("custom", deck) : startDeck(deckName); render(); });
+    $("#rest").addEventListener("click", placeRest);
+    $("#use-custom").addEventListener("click", () => {
+      const nums = parseNums($("#custom").value);
+      if (!nums.length) { say("Type some whole numbers separated by spaces.", "bad"); return render(); }
+      startDeck("custom", nums); render();
+    });
+  }
+
+  // ---------- 2. Search ----------
+  function makeTargets() {
+    const list = nodes(root);
+    if (!list.length) return [];
+    const keys = list.map((n) => n.key);
+    let deepest = list[0], dmax = -1;
+    (function d(n, k) { if (!n) return; if (k > dmax || (k === dmax && n.key > deepest.key)) { dmax = k; deepest = n; } d(n.left, k + 1); d(n.right, k + 1); })(root, 0);
+    let missing = null;
+    for (let i = Math.floor(keys.length / 2); i < keys.length - 1 && missing === null; i++) {
+      if (keys[i + 1] - keys[i] > 1) missing = keys[i] + Math.max(1, Math.round((keys[i + 1] - keys[i]) / 2));
+    }
+    if (missing === null) missing = keys[keys.length - 1] + 5;
+    const out = [deepest.key, missing];
+    const dup = list.find((n) => n.count > 1 && n.key !== deepest.key);
+    out.push(dup ? dup.key : keys[0] - 5);
+    return out;
+  }
+  function startSearch() { sCur = root; sPath = []; sDone = false; sSteps = 0; }
+  function searchChoice(choice) {
+    const key = targets[tIdx];
+    const at = sCur;
+    sSteps++;
+    const checked = " Checked " + sSteps + " card" + (sSteps > 1 ? "s" : "") + ". Here's the whole tree with your path.";
+    if (choice === "found") { sDone = "found"; say("Stopped at " + at.key + " (count " + at.count + ")." + checked); return render(); }
+    sPath.push(at.id);
+    if (!at[choice]) { sDone = "missing"; say(at.key + "'s " + choice + " is NULL, so the search ends: not found." + checked); return render(); }
+    sCur = at[choice]; say("Went " + choice + ". Now you're at a new card."); render();
+  }
+  function renderSearch() {
+    if (!root) { draw(); mainBox.innerHTML = "<h2>2. Search</h2><p>Build a tree first (step 1).</p>"; sideBox.innerHTML = ""; return; }
+    if (!targets.length) { targets = makeTargets(); tIdx = 0; startSearch(); }
+    const key = targets[tIdx];
+    if (sDone) draw({ found: sDone === "found" ? sCur : null, path: sPath });
+    else drawOne(sCur, sPath.length);
+    let h = '<h2>2. Search</h2><div class="label">Find these</div><div class="hand">' +
+      targets.map((k, i) => '<span class="chip ' + (i < tIdx ? "done" : i === tIdx ? "now" : "") + '">' + k + "</span>").join("") + "</div>";
+    if (sDone) {
+      h += '<div class="prompt">Looking for <b>' + key + "</b>.</div>" + msgHTML() + '<div class="row">' +
+        (tIdx < targets.length - 1 ? '<button class="btn primary" id="next-t">Next key</button>' : '<button class="btn primary" id="go-print">Next: Print in order</button>') + "</div>";
+    } else {
+      h += '<div class="prompt">Looking for <b>' + key + "</b>. You\'re at <b>" + sCur.key + "</b>. Which way?</div>" + msgHTML() +
+        '<div class="choices"><button class="btn" data-c="left">&larr; Left<small>smaller</small></button><button class="btn" data-c="found">Found it<small>equal</small></button><button class="btn" data-c="right">Right &rarr;<small>bigger</small></button></div>' +
+        '<div class="keys">Keyboard: &larr; left, &darr; found, &rarr; right</div>';
+    }
+    mainBox.innerHTML = h;
+    mainBox.querySelectorAll("[data-c]").forEach((b) => b.addEventListener("click", () => searchChoice(b.dataset.c)));
+    const nt = $("#next-t"); if (nt) nt.addEventListener("click", () => { tIdx++; startSearch(); say(""); render(); });
+    const gp = $("#go-print"); if (gp) gp.addEventListener("click", () => setMode("print"));
+    sideBox.innerHTML = '<h2>Try your own</h2><div class="row"><input type="text" id="find" placeholder="Key to find" aria-label="Key to find"><button class="btn small" id="find-go">Find</button></div>' +
+      '<p>You only see the card you\'re on. The program is the same: it only has a pointer to the current node, and has to follow left or right to see more.</p>' +
+      '<div class="label">Spec 2.1</div><p>Start at the root. Equal: done. Smaller: go left. Bigger: go right. If you reach a NULL, the key isn\'t in the tree. Every step goes down one level, so a taller tree can mean more checks.</p>';
+    $("#find-go").addEventListener("click", () => {
+      const n = parseNums($("#find").value)[0];
+      if (n === undefined) return;
+      targets.splice(tIdx + (sDone ? 1 : 0), 0, n); if (sDone) tIdx++; startSearch(); say(""); render();
+    });
+  }
+
+  // ---------- 3. Print in order ----------
+  function printClick(id) {
+    const order = nodes(root);
+    const expect = order[printed.length];
+    if (!expect) return;
+    if (id === expect.id) {
+      printed.push(id); flashId = null;
+      say(printed.length === order.length ? "Done. In-order visits every card from smallest to biggest, so the output is sorted." : "Printed " + expect.count + " " + expect.key + ".", "good");
+    } else {
+      const n = byId(id);
+      if (printed.includes(id)) say(n.key + " is already printed.", "bad");
+      else if (n.left && !printed.includes(n.left.id)) say("Not yet. " + n.key + " still has cards on its left, and those print before it.", "bad");
+      else say("Not yet. Something smaller than " + n.key + " still hasn't printed. In-order is left side, then the card, then right side.", "bad");
+      flashId = id;
+    }
+    render();
+    flashId = null;
+  }
+  function renderPrint() {
+    if (!root) { draw(); mainBox.innerHTML = "<h2>3. Print in order</h2><p>Build a tree first (step 1).</p>"; sideBox.innerHTML = ""; return; }
+    const order = nodes(root);
+    const list = printed.map(byId);
+    draw({ printed, clickable: printed.length < order.length ? printClick : null });
+    mainBox.innerHTML = '<h2>3. Print in order</h2><div class="prompt">Click the cards in the order an in-order traversal prints them.</div>' + msgHTML() +
+      '<div class="label cmd">$ ./unique ...</div><pre class="term">' + esc(printOut(list)) + "</pre>" +
+      '<div class="row"><button class="btn small" id="p-reset">Start over</button>' + (printed.length === order.length ? '<button class="btn primary" id="go-free">Next: Free</button>' : "") + "</div>";
+    $("#p-reset").addEventListener("click", () => { printed = []; say(""); render(); });
+    const gf = $("#go-free"); if (gf) gf.addEventListener("click", () => setMode("free"));
+    sideBox.innerHTML = '<div class="label">Spec 2.3</div><pre class="code">traverse_in_order(node):\n    if node is not NULL:\n        traverse_in_order(node-&gt;left)\n        visit the node (print it)\n        traverse_in_order(node-&gt;right)</pre>' +
+      '<p>Each line is the count, then the key, like the real <span class="mono">unique</span>.</p>';
+  }
+
+  // ---------- 4. Free ----------
+  function freeClick(id) {
+    const n = byId(id);
+    if (freed.includes(id)) return;
+    const kids = ["left", "right"].filter((d) => n[d] && !freed.includes(n[d].id)).map((d) => n[d]);
+    if (kids.length) {
+      say("Can't free " + n.key + " yet: " + kids.map((k) => k.key).join(" and ") + (kids.length > 1 ? " are" : " is") +
+        " still under it. Once " + n.key + " is freed you can't read its left and right pointers anymore, so those cards would be lost.", "bad");
+      flashId = id;
+    } else {
+      freed.push(id); flashId = null;
+      say(freed.length === nodes(root).length ? "Every card is freed. Now tree-&gt;root can be set to NULL. Next up: the family tree in week7-c-lab." : "free(" + n.key + ")", "good");
+    }
+    render(); flashId = null;
+  }
+  function renderFree() {
+    if (!root) { draw(); mainBox.innerHTML = "<h2>4. Free</h2><p>Build a tree first (step 1).</p>"; sideBox.innerHTML = ""; return; }
+    const all = nodes(root);
+    const done = freed.length === all.length;
+    draw({ freed, clickable: done ? null : freeClick });
+    const post = postorder(root).map((n) => n.key).join(" ");
+    mainBox.innerHTML = '<h2>4. Free the tree</h2><div class="prompt">Pick up the cards one at a time. Rule: you can only free a card with nothing under it.</div>' + msgHTML() +
+      '<div class="label">Your order</div><pre class="term">' + esc(freed.map((id) => "free(" + byId(id).key + ")").join("\n")) + "</pre>" +
+      (done ? '<p>Post-order frees them as <b class="mono">' + post + "</b>. It always takes the children before their parent, so it follows the rule automatically.</p>" : "") +
+      '<div class="row"><button class="btn small" id="f-reset">Start over</button>' + "" + "</div>";
+    $("#f-reset").addEventListener("click", () => { freed = []; say(""); render(); });
+    sideBox.innerHTML = '<div class="label">Spec 2.3</div><pre class="code">traverse_post_order(node):\n    if node is not NULL:\n        traverse_post_order(node-&gt;left)\n        traverse_post_order(node-&gt;right)\n        visit the node (free it)</pre>' +
+      '<p>Why not free the parent first? After <span class="mono">free(node)</span>, reading <span class="mono">node-&gt;left</span> is a use-after-free bug.</p>';
+  }
+
+  function parseNums(t) { return (t.match(/-?\d+/g) || []).map(Number); }
+
+  // ---------- mode switching ----------
+  function setMode(m) {
+    mode = m; say("");
+    document.querySelectorAll("nav.steps button").forEach((b) => b.setAttribute("aria-selected", String(b.dataset.mode === m)));
+    if (m === "search" && root) { targets = makeTargets(); tIdx = 0; startSearch(); }
+    render();
+  }
+  function render() {
+    ({ build: renderBuild, search: renderSearch, print: renderPrint, free: renderFree })[mode]();
+  }
+  document.querySelectorAll("nav.steps button").forEach((b) => b.addEventListener("click", () => setMode(b.dataset.mode)));
+  document.addEventListener("keydown", (e) => {
+    if (e.target.matches("input, select, textarea") || e.metaKey || e.ctrlKey || e.altKey) return;
+    if (mode !== "build" && mode !== "search") return;
+    const map = { ArrowLeft: "left", ArrowRight: "right", ArrowDown: mode === "build" ? "same" : "found" };
+    const c = map[e.key];
+    const btn = c && mainBox.querySelector('[data-c="' + c + '"]');
+    if (btn) { e.preventDefault(); btn.click(); }
+  });
+  startDeck("mixed");
+  // open with the first two cards placed so the page shows a tree at rest
+  root = newNode(50); root.left = newNode(30); deckPos = 2;
+  say("50 is the root and 30 went left of it. Your turn: place 70.");
+  render();
+})();
+</script>
+</body>
+</html>

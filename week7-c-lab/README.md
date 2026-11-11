@@ -12,6 +12,15 @@ cd LSS-CSE-13S && git pull
 cd week7-c-lab
 ```
 
+## Warm-up: Tree Cards (`tree-cards/`)
+A web page where you build a binary search tree one card at a time, then search it, print it in
+order, and free it. Open it in your browser:
+[Tree Cards](https://htmlpreview.github.io/?https://github.com/romangarms/LSS-CSE-13S/blob/main/week7-c-lab/tree-cards/index.html).
+Or open it from your Codespace:
+```bash
+cd tree-cards && python3 -m http.server 8000     # then open the forwarded port 8000
+```
+
 ## Part 1: Demo with your tutor (`1-demo/`)
 `pet.c` makes one struct on the heap, uses it, and frees it. Write it together with your tutor:
 `pet_new()` with `calloc()`, `main()` using `->`, then `pet_free()`. The correct result is at the
