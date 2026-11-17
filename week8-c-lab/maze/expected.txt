@@ -1,0 +1,51 @@
+The maze:
+#########
+#S  #   #
+# # # # #
+#   #   #
+## ## # #
+#     #E#
+#########
+Route 1: 20 steps
+#########
+#...#...#
+# #.#.#.#
+# ..#. .#
+##.##.#.#
+# ....#E#
+#########
+Route 2: 16 steps
+#########
+#...#   #
+# #.# # #
+# ..#...#
+##.##.#.#
+# ....#E#
+#########
+Route 3: 18 steps
+#########
+#.  #...#
+#.# #.#.#
+#.. #. .#
+##.##.#.#
+# ....#E#
+#########
+Route 4: 14 steps
+#########
+#.  #   #
+#.# # # #
+#.. #...#
+##.##.#.#
+# ....#E#
+#########
+4 routes to the exit. Shortest: 14 steps.
+free row 0
+free row 1
+free row 2
+free row 3
+free row 4
+free row 5
+free row 6
+free cells
+free maze
+m is NULL
