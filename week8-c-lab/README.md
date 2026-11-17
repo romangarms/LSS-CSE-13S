@@ -28,7 +28,7 @@ cd road-trip && python3 -m http.server 8000     # then open the forwarded port 8
 ## Part 1: Build and free the maze, with your tutor (`maze/`)
 `maze.c` stores the maze as `char **cells`: an array of row pointers, and each row is its own
 array, just like the adjacency matrix in asgn7's `graph_create()`. Write `maze_create()` and
-`maze_free()` together with your tutor.
+`maze_free()` together with your tutor, following the pseudocode inside each one.
 ```bash
 cd maze
 clang -Wall -Werror maze.c -o maze && ./maze
@@ -37,8 +37,9 @@ When Part 1 works, the program prints the maze, `0 routes to the exit`, and the 
 ending with `m is NULL`.
 
 ## Part 2: Find every route, on your own (`maze/`)
-Write `explore()`. It's the `dfs()` pseudocode from section 5.1 of the asgn7 spec, on a grid:
-mark the cell, try up, right, down, and left, then unmark it so other routes can use it.
+Write `explore()` by turning the pseudocode inside it into C. It's the same shape as `dfs()` in
+the asgn7 spec: mark the cell, try up, right, down, and left, then unmark it so other routes can
+use it.
 ```bash
 clang -Wall -Werror maze.c -o maze && ./maze
 ./maze > got.txt && diff -us expected.txt got.txt     # "identical" means it works
