@@ -433,8 +433,8 @@ let newCells = [];
 function renderLoad() {
   const row = (v, l) => `<span class="v">${v}</span><span class="l">${l}</span>`;
   document.getElementById("fileHead").innerHTML = `<div class="lbl">Already read for you:</div><div class="hgrid">` +
-    row(N, "vertices") + NAMES.map((n, i) => row(`${n}<span class="nl">↵</span>`, `names[${i}]`)).join("") +
-    row(EDGES.length, "edges") + `</div>`;
+    row(N, "vertices") + row(EDGES.length, "edges") +
+    NAMES.map((n, i) => row(n, `names[${i}]`)).join("") + `</div>`;
   let h = `<div class="fline ehead"><span>from</span><span>to</span><span>⛽</span></div>`;
   EDGES.forEach(([a,b,w], k) => h += `<button class="edge${edgeDone[k] ? " done" : ""}" data-k="${k}"><span class="ecol">${a}</span><span class="ecol">${b}</span><span class="ecol">${w}</span><span class="tag">${edgeDone[k] ? `✓ ${SHORT[a]}–${SHORT[b]}` : "read ▸"}</span></button>`);
   const f = document.getElementById("file"); f.innerHTML = h;
